@@ -6,6 +6,7 @@ function App({}: AppProps) {
   return (
     <div>
       <h1>Product feedback!!!</h1>
+      <button>Click</button>
     </div>
   );
 }
