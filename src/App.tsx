@@ -1,10 +1,11 @@
 import React from 'react';
 import { useProductFeedback } from './hooks/useProductFeedback';
+import data from './data.json';
 
 interface AppProps {}
 
 function App({}: AppProps) {
-  const { feedback } = useProductFeedback();
+  const { feedback, upvoteProductRequest } = useProductFeedback(data);
 
   return (
     <div>
