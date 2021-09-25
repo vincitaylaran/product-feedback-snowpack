@@ -19,13 +19,19 @@ interface Comment {
   id: number;
   content: string;
   user: User;
-  replyingTo?: string;
+  replies?: Reply[];
 }
 
 interface User {
   image: string;
   name: string;
   username: string;
+}
+
+interface Reply {
+  content: string;
+  replyingTo: string;
+  user: User;
 }
 
 export function useProductFeedback() {
