@@ -1,6 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { ProductFeedback } from '../interfaces/productFeedback.interface';
-import type { ProductRequest } from '../interfaces/productRequest.interface';
+import type {
+  ProductRequest,
+  Comment,
+} from '../interfaces/productRequest.interface';
+import type { User } from '../interfaces/user.interface';
 
 export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
@@ -63,8 +67,39 @@ export function useProductFeedback(data: ProductFeedback) {
     requestIdArray: number[],
   ): boolean => requestIdArray.some((requestId) => requestId === id);
 
+  const addComment = (
+    requestId: number,
+    comment: { content: string; user: User },
+  ): void => {
+    let feedbackCopy: ProductFeedback = JSON.parse(JSON.stringify(feedback));
+    let finalCommentId: number;
+
+    feedbackCopy.productRequests.forEach((request) => {
+      if (request.id === requestId) {
+        if (request.comments) {
+          finalCommentId = request.comments[request.comments.length - 1].id++;
+          request.comments.push({
+            id: finalCommentId,
+            content: comment.content,
+            user: comment.user,
+          });
+        } else {
+          request.comments = [];
+          request.comments.push({
+            id: 1,
+            content: comment.content,
+            user: comment.user,
+          });
+        }
+      }
+    });
+
+    setFeedback(feedbackCopy);
+  };
+
   return {
     feedback,
     upvoteProductRequest,
+    addComment,
   };
 }
