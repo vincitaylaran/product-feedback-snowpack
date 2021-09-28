@@ -1,4 +1,5 @@
 import type { User } from './user.interface';
+
 export interface ProductRequest {
   id: number;
   title: string;
