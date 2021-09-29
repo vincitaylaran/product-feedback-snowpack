@@ -10,7 +10,8 @@ import Stack from './components/Stack';
 interface AppProps {}
 
 function App({}: AppProps) {
-  const { feedback, upvoteProductRequest } = useProductFeedback(data);
+  const { feedback, upvoteProductRequest, addComment, replyToComment } =
+    useProductFeedback(data);
 
   return (
     <PageContainer>

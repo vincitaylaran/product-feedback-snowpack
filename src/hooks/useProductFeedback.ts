@@ -2,45 +2,55 @@ import { useState } from 'react';
 import type { ProductFeedback } from '../interfaces/productFeedback.interface';
 import type {
   ProductRequest,
-  Comment,
+  Reply,
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
 
 export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
 
+  /***** CREATE FEEDBACK REQUEST OPERATIONS *****/
+  const createProductRequest = (productRequest: ProductRequest): void => {
+    const requestsCopy = [...feedback.productRequests];
+    requestsCopy.push(productRequest);
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
+  /***** READ FEEDBACK REQUEST OPERATIONS *****/
+  const findProductRequest = (
+    requestId: number,
+  ): ProductRequest | undefined => {
+    return feedback.productRequests.find((request) => request.id === requestId);
+  };
+
+  /***** DELETE FEEDBACK REQUEST OPERATIONS *****/
+
+  /***** UPDATE FEEDBACK REQUEST OPERATIONS *****/
   const upvoteProductRequest = (id: number): void => {
-    // Creates a deep copy of feedback.
-    let feedbackCopy: ProductFeedback = JSON.parse(JSON.stringify(feedback));
+    let feedbackCopy: ProductFeedback = { ...feedback };
     let { currentUser, productRequests } = feedbackCopy;
     let userPreviouslyUpvoted: boolean;
 
     if (currentUser.upvotedRequests) {
       // Check if ID exists.
-      userPreviouslyUpvoted = didUserPreviouslyUpvote(
-        id,
-        currentUser.upvotedRequests,
-      );
+      userPreviouslyUpvoted = didUserPreviouslyUpvote(id, currentUser);
 
       if (userPreviouslyUpvoted) {
-        currentUser.upvotedRequests = removeUpvoteRequestId(
-          id,
-          currentUser.upvotedRequests,
-        );
-        productRequests = changeRequestUpvote(id, productRequests, false);
+        currentUser.upvotedRequests = removeUpvoteRequestId(id, currentUser);
+        productRequests = changeUpvoteCount(id, productRequests, false);
       } else {
         currentUser.upvotedRequests.push(id);
-        productRequests = changeRequestUpvote(id, productRequests, true);
+        productRequests = changeUpvoteCount(id, productRequests, true);
       }
     } else {
       currentUser.upvotedRequests = [id];
-      productRequests = changeRequestUpvote(id, productRequests, true);
+      productRequests = changeUpvoteCount(id, productRequests, true);
     }
 
     setFeedback(feedbackCopy);
   };
 
-  const changeRequestUpvote = (
+  const changeUpvoteCount = (
     id: number,
     productRequests: ProductRequest[],
     shouldIncrement: boolean,
@@ -59,22 +69,29 @@ export function useProductFeedback(data: ProductFeedback) {
 
   const removeUpvoteRequestId = (
     id: number,
-    requestIdArray: number[],
-  ): number[] => requestIdArray.filter((requestId) => requestId !== id);
+    user: User,
+  ): number[] | undefined => {
+    if (user.upvotedRequests) {
+      return user.upvotedRequests.filter((requestId) => requestId !== id);
+    }
+    return;
+  };
 
-  const didUserPreviouslyUpvote = (
-    id: number,
-    requestIdArray: number[],
-  ): boolean => requestIdArray.some((requestId) => requestId === id);
+  const didUserPreviouslyUpvote = (id: number, user: User): boolean => {
+    if (user.upvotedRequests) {
+      return user.upvotedRequests.some((requestId) => requestId === id);
+    }
+    return false;
+  };
 
   const addComment = (
     requestId: number,
     comment: { content: string; user: User },
   ): void => {
-    let feedbackCopy: ProductFeedback = JSON.parse(JSON.stringify(feedback));
+    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
     let finalCommentId: number;
 
-    feedbackCopy.productRequests.forEach((request) => {
+    requestsCopy.forEach((request) => {
       if (request.id === requestId) {
         if (request.comments) {
           finalCommentId = request.comments[request.comments.length - 1].id++;
@@ -94,12 +111,38 @@ export function useProductFeedback(data: ProductFeedback) {
       }
     });
 
-    setFeedback(feedbackCopy);
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
+  const replyToComment = (
+    requestId: number,
+    commentId: number,
+    reply: Reply,
+  ) => {
+    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
+
+    requestsCopy.forEach((request) => {
+      if (request.id === requestId) {
+        if (request.comments) {
+          request.comments.forEach((comment) => {
+            if (comment.id === commentId) {
+              if (comment.replies) {
+                comment.replies.push(reply);
+              }
+            }
+          });
+        }
+      }
+    });
+
+    setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
   return {
     feedback,
     upvoteProductRequest,
     addComment,
+    replyToComment,
+    createProductRequest,
   };
 }
