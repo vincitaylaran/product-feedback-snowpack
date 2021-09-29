@@ -9,23 +9,28 @@ import type { User } from '../interfaces/user.interface';
 export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
 
-  /***** CREATE FEEDBACK REQUEST OPERATIONS *****/
+  /***** CREATE OPERATIONS *****/
   const createProductRequest = (productRequest: ProductRequest): void => {
     const requestsCopy = [...feedback.productRequests];
     requestsCopy.push(productRequest);
     setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
-  /***** READ FEEDBACK REQUEST OPERATIONS *****/
+  /***** READ OPERATIONS *****/
   const findProductRequest = (
     requestId: number,
   ): ProductRequest | undefined => {
     return feedback.productRequests.find((request) => request.id === requestId);
   };
 
-  /***** DELETE FEEDBACK REQUEST OPERATIONS *****/
+  /***** DELETE OPERATIONS *****/
+  const deleteProductRequest = (requestId: number): void => {
+    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    const filtered = requestsCopy.filter((request) => request.id !== requestId);
+    setFeedback({ ...feedback, productRequests: filtered });
+  };
 
-  /***** UPDATE FEEDBACK REQUEST OPERATIONS *****/
+  /***** UPDATE OPERATIONS *****/
   const upvoteProductRequest = (id: number): void => {
     let feedbackCopy: ProductFeedback = { ...feedback };
     let { currentUser, productRequests } = feedbackCopy;
@@ -144,5 +149,7 @@ export function useProductFeedback(data: ProductFeedback) {
     addComment,
     replyToComment,
     createProductRequest,
+    deleteProductRequest,
+    findProductRequest,
   };
 }
