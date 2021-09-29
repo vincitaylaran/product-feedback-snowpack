@@ -17,30 +17,24 @@ export function useProductFeedback(data: ProductFeedback) {
 
     if (currentUser.upvotedRequests) {
       // Check if ID exists.
-      userPreviouslyUpvoted = didUserPreviouslyUpvote(
-        id,
-        currentUser.upvotedRequests,
-      );
+      userPreviouslyUpvoted = didUserPreviouslyUpvote(id, currentUser);
 
       if (userPreviouslyUpvoted) {
-        currentUser.upvotedRequests = removeUpvoteRequestId(
-          id,
-          currentUser.upvotedRequests,
-        );
-        productRequests = changeRequestUpvote(id, productRequests, false);
+        currentUser.upvotedRequests = removeUpvoteRequestId(id, currentUser);
+        productRequests = changeUpvoteCount(id, productRequests, false);
       } else {
         currentUser.upvotedRequests.push(id);
-        productRequests = changeRequestUpvote(id, productRequests, true);
+        productRequests = changeUpvoteCount(id, productRequests, true);
       }
     } else {
       currentUser.upvotedRequests = [id];
-      productRequests = changeRequestUpvote(id, productRequests, true);
+      productRequests = changeUpvoteCount(id, productRequests, true);
     }
 
     setFeedback(feedbackCopy);
   };
 
-  const changeRequestUpvote = (
+  const changeUpvoteCount = (
     id: number,
     productRequests: ProductRequest[],
     shouldIncrement: boolean,
@@ -59,13 +53,20 @@ export function useProductFeedback(data: ProductFeedback) {
 
   const removeUpvoteRequestId = (
     id: number,
-    requestIdArray: number[],
-  ): number[] => requestIdArray.filter((requestId) => requestId !== id);
+    user: User,
+  ): number[] | undefined => {
+    if (user.upvotedRequests) {
+      return user.upvotedRequests.filter((requestId) => requestId !== id);
+    }
+    return;
+  };
 
-  const didUserPreviouslyUpvote = (
-    id: number,
-    requestIdArray: number[],
-  ): boolean => requestIdArray.some((requestId) => requestId === id);
+  const didUserPreviouslyUpvote = (id: number, user: User): boolean => {
+    if (user.upvotedRequests) {
+      return user.upvotedRequests.some((requestId) => requestId === id);
+    }
+    return false;
+  };
 
   const addComment = (
     requestId: number,

@@ -5,7 +5,8 @@ import data from './data.json';
 interface AppProps {}
 
 function App({}: AppProps) {
-  const { feedback, upvoteProductRequest } = useProductFeedback(data);
+  const { feedback, upvoteProductRequest, addComment } =
+    useProductFeedback(data);
 
   return (
     <div>
