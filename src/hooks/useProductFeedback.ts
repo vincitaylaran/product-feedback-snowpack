@@ -10,8 +10,7 @@ export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
 
   const upvoteProductRequest = (id: number): void => {
-    // Creates a deep copy of feedback.
-    let feedbackCopy: ProductFeedback = JSON.parse(JSON.stringify(feedback));
+    let feedbackCopy: ProductFeedback = { ...feedback };
     let { currentUser, productRequests } = feedbackCopy;
     let userPreviouslyUpvoted: boolean;
 
@@ -72,10 +71,10 @@ export function useProductFeedback(data: ProductFeedback) {
     requestId: number,
     comment: { content: string; user: User },
   ): void => {
-    let feedbackCopy: ProductFeedback = JSON.parse(JSON.stringify(feedback));
+    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
     let finalCommentId: number;
 
-    feedbackCopy.productRequests.forEach((request) => {
+    requestsCopy.forEach((request) => {
       if (request.id === requestId) {
         if (request.comments) {
           finalCommentId = request.comments[request.comments.length - 1].id++;
@@ -95,7 +94,7 @@ export function useProductFeedback(data: ProductFeedback) {
       }
     });
 
-    setFeedback(feedbackCopy);
+    setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
   const replyToComment = (
@@ -103,7 +102,7 @@ export function useProductFeedback(data: ProductFeedback) {
     commentId: number,
     reply: Reply,
   ) => {
-    const requestsCopy = [...feedback.productRequests];
+    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
 
     requestsCopy.forEach((request) => {
       if (request.id === requestId) {
