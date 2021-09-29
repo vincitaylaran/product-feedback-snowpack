@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ProductFeedback } from '../interfaces/productFeedback.interface';
 import type {
   ProductRequest,
-  Comment,
+  Reply,
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
 
@@ -98,9 +98,34 @@ export function useProductFeedback(data: ProductFeedback) {
     setFeedback(feedbackCopy);
   };
 
+  const replyToComment = (
+    requestId: number,
+    commentId: number,
+    reply: Reply,
+  ) => {
+    const requestsCopy = [...feedback.productRequests];
+
+    requestsCopy.forEach((request) => {
+      if (request.id === requestId) {
+        if (request.comments) {
+          request.comments.forEach((comment) => {
+            if (comment.id === commentId) {
+              if (comment.replies) {
+                comment.replies.push(reply);
+              }
+            }
+          });
+        }
+      }
+    });
+
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
   return {
     feedback,
     upvoteProductRequest,
     addComment,
+    replyToComment,
   };
 }
