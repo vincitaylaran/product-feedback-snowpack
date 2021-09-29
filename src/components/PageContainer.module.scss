@@ -1,0 +1,7 @@
+@use '../shared_styles/colors.scss';
+
+.page_container {
+    padding: 3rem; 
+    background-color: colors.$color_blue-100;
+    min-height: 100vh;
+}

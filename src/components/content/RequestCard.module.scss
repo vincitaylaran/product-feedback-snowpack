@@ -1,0 +1,53 @@
+@use '../../shared_styles/colors.scss';
+
+.requestCard {
+  display: flex;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+.requestDetails {
+    & > *:not(:last-child) {
+        margin-bottom: 0.8rem;
+    }
+    &__title {
+        font-weight: 800;
+    }
+    &__description {
+        font-size: 1rem;
+    }
+}
+
+
+.upvotes {
+  min-width: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: colors.$color_blue-100;
+  border-radius: 0.5rem;
+  margin-right: 2rem;
+  padding: 0.6rem;
+  font-weight: 700;
+  & > img {
+    width: 1rem;
+    // transform: scale(0.5);
+    padding-bottom: 0.2rem;
+  }
+}
+
+.comments {
+    margin-left: auto;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: 700;
+    
+    & > *:first-child {
+        margin-right: 1rem;
+    }
+}
+.zero {
+    color: colors.$color_grey--md;
+}

@@ -1,3 +1,5 @@
+@use "./colors.scss";
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -12,3 +14,19 @@ body {
       monospace;
   }
   
+  select {
+    width: 100%;
+    font-size: 100%;
+    cursor: pointer;
+    border-radius: 0;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+/* For IE <= 11 */
+select::-ms-expand {
+    display: none;
+ }
