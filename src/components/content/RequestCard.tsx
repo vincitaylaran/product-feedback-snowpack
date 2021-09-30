@@ -16,6 +16,22 @@ interface RequestCardProps {
 }
 
 function RequestCard({ request }: RequestCardProps) {
+  // Returns the number of comments in a product request, including replies.
+  const getCommentCount = (): number => {
+    let commentCount: number = 0;
+
+    if (request.comments) {
+      commentCount = request.comments.length;
+      request.comments.forEach((comment) => {
+        if (comment.replies) {
+          commentCount += comment.replies.length;
+        }
+      });
+    }
+
+    return commentCount;
+  };
+
   return (
     <Card className={styles.requestCard}>
       <UpvoteButton upvotes={request.upvotes} />
@@ -24,7 +40,7 @@ function RequestCard({ request }: RequestCardProps) {
         description={request.description}
         category={request.category}
       />
-      <Comments commentCount={request.comments?.length || 0} />
+      <Comments commentCount={getCommentCount()} />
     </Card>
   );
 }
@@ -56,6 +72,7 @@ function Comments({ commentCount }: CommentsProps) {
     </div>
   );
 }
+
 interface RequestDetailsProps {
   title: string;
   description: string;
@@ -71,6 +88,7 @@ function RequestDetails({ title, description, category }: RequestDetailsProps) {
     </div>
   );
 }
+
 function formatCategory(category: string) {
   return category[0].toUpperCase() + category.substring(1);
 }
