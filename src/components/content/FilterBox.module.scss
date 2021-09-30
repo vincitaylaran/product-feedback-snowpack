@@ -1,0 +1,9 @@
+
+.filter_box {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    & > * {
+        margin: 0.4rem 0.5rem;
+    }
+}

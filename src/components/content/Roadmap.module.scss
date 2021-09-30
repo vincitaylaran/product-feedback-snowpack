@@ -1,0 +1,25 @@
+.roadmap {
+    & h2 {
+        font-weight: 800;
+    }
+    
+}
+.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.item {
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+.dot {
+    margin-right: 0.5rem;
+}
+.value {
+    display: inline-flex;
+    margin-left: auto;
+}

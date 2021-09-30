@@ -1,0 +1,8 @@
+@use '../shared_styles/colors.scss';
+
+.card {
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: colors.$color_white;
+    box-shadow: rgba(0, 0, 0, 0.05) 3px 3px 10px;
+}
