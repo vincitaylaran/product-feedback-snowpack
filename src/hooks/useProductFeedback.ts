@@ -9,28 +9,24 @@ import type { User } from '../interfaces/user.interface';
 export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
 
-  /***** CREATE OPERATIONS *****/
   const createProductRequest = (productRequest: ProductRequest): void => {
     const requestsCopy = [...feedback.productRequests];
     requestsCopy.push(productRequest);
     setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
-  /***** READ OPERATIONS *****/
   const findProductRequest = (
     requestId: number,
   ): ProductRequest | undefined => {
     return feedback.productRequests.find((request) => request.id === requestId);
   };
 
-  /***** DELETE OPERATIONS *****/
   const deleteProductRequest = (requestId: number): void => {
     const requestsCopy: ProductRequest[] = [...feedback.productRequests];
     const filtered = requestsCopy.filter((request) => request.id !== requestId);
     setFeedback({ ...feedback, productRequests: filtered });
   };
 
-  /***** UPDATE OPERATIONS *****/
   const upvoteProductRequest = (id: number): void => {
     let feedbackCopy: ProductFeedback = { ...feedback };
     let { currentUser, productRequests } = feedbackCopy;
@@ -143,6 +139,49 @@ export function useProductFeedback(data: ProductFeedback) {
     setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
+  /**
+   *
+   * @param sortByMost Pass in `true` to sort product requests by most upvotes.
+   */
+  const sortProductRequestsByUpvotes = (sortByMost: boolean): void => {
+    let requestsCopy = [...feedback.productRequests];
+
+    requestsCopy.sort((a, b) => {
+      if (sortByMost) {
+        return b.upvotes - a.upvotes;
+      }
+      return a.upvotes - b.upvotes;
+    });
+
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
+  const sortProductRequestsByCommentsCount = (sortByMost: boolean): void => {
+    let requestsCopy = [...feedback.productRequests];
+
+    requestsCopy.sort((a, b) => {
+      if (a.comments && b.comments) {
+        if (sortByMost) {
+          return b.comments.length - a.comments.length;
+        }
+      } else if (
+        !a.comments ||
+        !b.comments ||
+        a.comments ||
+        !b.comments ||
+        !a.comments ||
+        b.comments
+      ) {
+        if (sortByMost) {
+          return -1;
+        }
+      }
+      return 0;
+    });
+
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
   return {
     feedback,
     upvoteProductRequest,
@@ -151,5 +190,7 @@ export function useProductFeedback(data: ProductFeedback) {
     createProductRequest,
     deleteProductRequest,
     findProductRequest,
+    sortProductRequestsByUpvotes,
+    sortProductRequestsByCommentsCount,
   };
 }
