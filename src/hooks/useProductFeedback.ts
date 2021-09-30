@@ -94,6 +94,8 @@ export function useProductFeedback(data: ProductFeedback) {
 
     requestsCopy.forEach((request) => {
       if (request.id === requestId) {
+        console.log(`id ${requestId} exists`);
+
         if (request.comments) {
           finalCommentId = request.comments[request.comments.length - 1].id++;
           request.comments.push({
@@ -140,7 +142,7 @@ export function useProductFeedback(data: ProductFeedback) {
   };
 
   /**
-   *
+   * Sorts product requests by upvote count.
    * @param sortByMost Pass in `true` to sort product requests by most upvotes.
    */
   const sortProductRequestsByUpvotes = (sortByMost: boolean): void => {
@@ -156,27 +158,45 @@ export function useProductFeedback(data: ProductFeedback) {
     setFeedback({ ...feedback, productRequests: requestsCopy });
   };
 
+  /**
+   * Sorts product requests by comment count. The number of replies a comment has
+   * counts to the sum of comments.
+   * @param sortByMost Pass in `true` to sort product requests by most comments.
+   */
   const sortProductRequestsByCommentsCount = (sortByMost: boolean): void => {
-    let requestsCopy = [...feedback.productRequests];
+    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
 
     requestsCopy.sort((a, b) => {
-      if (a.comments && b.comments) {
-        if (sortByMost) {
-          return b.comments.length - a.comments.length;
-        }
-      } else if (
-        !a.comments ||
-        !b.comments ||
-        a.comments ||
-        !b.comments ||
-        !a.comments ||
-        b.comments
-      ) {
-        if (sortByMost) {
-          return -1;
-        }
+      let aCommentsCount: number;
+      let bCommentsCount: number;
+
+      if (!a.comments) {
+        aCommentsCount = 0;
+      } else {
+        aCommentsCount = a.comments.length;
+
+        // Count comment's replies to overall comment count
+        a.comments.forEach((c) => {
+          if (c.replies) aCommentsCount += c.replies.length;
+        });
       }
-      return 0;
+
+      if (!b.comments) {
+        bCommentsCount = 0;
+      } else {
+        bCommentsCount = b.comments.length;
+
+        // Count comment's replies to overall comment count
+        b.comments.forEach((c) => {
+          if (c.replies) bCommentsCount += c.replies.length;
+        });
+      }
+
+      if (sortByMost) {
+        return bCommentsCount - aCommentsCount;
+      }
+
+      return aCommentsCount - bCommentsCount;
     });
 
     setFeedback({ ...feedback, productRequests: requestsCopy });
