@@ -175,6 +175,8 @@ export function useProductFeedback(data: ProductFeedback) {
    * Sorts product requests by comment count. The number of replies a comment has
    * counts to the sum of comments.
    * @param sortByMost Pass in `true` to sort product requests by most comments.
+   *
+   * This function assumes that if `comments` is falsy, give it a length of 0.
    */
   const sortProductRequestsByCommentsCount = (sortByMost: boolean): void => {
     let requestsCopy: ProductRequest[] = [...feedback.productRequests];
