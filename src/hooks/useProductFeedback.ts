@@ -182,30 +182,11 @@ export function useProductFeedback(data: ProductFeedback) {
     let requestsCopy: ProductRequest[] = [...feedback.productRequests];
 
     requestsCopy.sort((a, b) => {
-      let aCommentsCount: number;
-      let bCommentsCount: number;
+      let aCommentsCount: number = 0;
+      let bCommentsCount: number = 0;
 
-      if (!a.comments) {
-        aCommentsCount = 0;
-      } else {
-        aCommentsCount = a.comments.length;
-
-        // Count comment's replies to overall comment count
-        a.comments.forEach((c) => {
-          if (c.replies) aCommentsCount += c.replies.length;
-        });
-      }
-
-      if (!b.comments) {
-        bCommentsCount = 0;
-      } else {
-        bCommentsCount = b.comments.length;
-
-        // Count comment's replies to overall comment count
-        b.comments.forEach((c) => {
-          if (c.replies) bCommentsCount += c.replies.length;
-        });
-      }
+      if (a.comments) aCommentsCount = getCommentCount(a);
+      if (b.comments) bCommentsCount = getCommentCount(b);
 
       if (sortByMost) {
         return bCommentsCount - aCommentsCount;
@@ -215,6 +196,23 @@ export function useProductFeedback(data: ProductFeedback) {
     });
 
     setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
+  /**
+   * Counts the number of comments and replies a product request has.
+   * @param productRequest
+   */
+  const getCommentCount = (productRequest: ProductRequest): number => {
+    let commentCount: number = 0;
+
+    if (productRequest.comments) {
+      commentCount = productRequest.comments.length;
+      productRequest.comments.forEach((comment) => {
+        if (comment.replies) commentCount += comment.replies.length;
+      });
+    }
+
+    return commentCount;
   };
 
   return {
