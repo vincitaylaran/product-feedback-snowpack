@@ -14,8 +14,18 @@ import RequestCard from './components/content/RequestCard';
 interface AppProps {}
 
 function App({}: AppProps) {
-  const { feedback, upvoteProductRequest, addComment, replyToComment } =
-    useProductFeedback(data);
+  const {
+    feedback,
+    upvoteProductRequest,
+    addComment,
+    replyToComment,
+    createProductRequest,
+    deleteProductRequest,
+    findProductRequest,
+    sortProductRequestsByUpvotes,
+    sortProductRequestsByCommentsCount,
+    filterByCategory,
+  } = useProductFeedback(data);
 
   return (
     <PageContainer>
