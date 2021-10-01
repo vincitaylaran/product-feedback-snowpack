@@ -216,15 +216,13 @@ export function useProductFeedback(data: ProductFeedback) {
     return commentCount;
   };
 
-  /**
-   *
-   * @param category
-   */
   const filterByCategory = (category: ProductRequestCategory): void => {
-    let requestsCopy = [...feedback.productRequests];
+    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    let filtered: ProductRequest[] = requestsCopy.filter(
+      (request) => request.category === category,
+    );
 
-    requestsCopy.filter((request) => request.category === category);
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...feedback, productRequests: filtered });
   };
 
   return {
