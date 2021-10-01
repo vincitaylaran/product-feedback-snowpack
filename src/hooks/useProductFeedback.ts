@@ -11,7 +11,7 @@ export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
 
   const createProductRequest = (productRequest: ProductRequest): void => {
-    const requestsCopy = [...feedback.productRequests];
+    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
     requestsCopy.push(productRequest);
     setFeedback({ ...feedback, productRequests: requestsCopy });
   };
@@ -24,41 +24,51 @@ export function useProductFeedback(data: ProductFeedback) {
 
   const deleteProductRequest = (requestId: number): void => {
     const requestsCopy: ProductRequest[] = [...feedback.productRequests];
-    const filtered = requestsCopy.filter((request) => request.id !== requestId);
+    const filtered: ProductRequest[] = requestsCopy.filter(
+      (request) => request.id !== requestId,
+    );
     setFeedback({ ...feedback, productRequests: filtered });
   };
 
-  const upvoteProductRequest = (id: number): void => {
+  /**
+   * Increments a product request's `upvotes` by 1. If the current user has already
+   * upvoted the request, decrement it by 1.
+   * @param requestId The ID of the product request.
+   */
+  const upvoteProductRequest = (requestId: number): void => {
     let feedbackCopy: ProductFeedback = { ...feedback };
     let { currentUser, productRequests } = feedbackCopy;
     let userPreviouslyUpvoted: boolean;
 
     if (currentUser.upvotedRequests) {
       // Check if ID exists.
-      userPreviouslyUpvoted = didUserPreviouslyUpvote(id, currentUser);
+      userPreviouslyUpvoted = didUserPreviouslyUpvote(requestId, currentUser);
 
       if (userPreviouslyUpvoted) {
-        currentUser.upvotedRequests = removeUpvoteRequestId(id, currentUser);
-        productRequests = changeUpvoteCount(id, productRequests, false);
+        currentUser.upvotedRequests = removeUpvoteRequestId(
+          requestId,
+          currentUser,
+        );
+        productRequests = changeUpvoteCount(requestId, productRequests, false);
       } else {
-        currentUser.upvotedRequests.push(id);
-        productRequests = changeUpvoteCount(id, productRequests, true);
+        currentUser.upvotedRequests.push(requestId);
+        productRequests = changeUpvoteCount(requestId, productRequests, true);
       }
     } else {
-      currentUser.upvotedRequests = [id];
-      productRequests = changeUpvoteCount(id, productRequests, true);
+      currentUser.upvotedRequests = [requestId];
+      productRequests = changeUpvoteCount(requestId, productRequests, true);
     }
 
     setFeedback(feedbackCopy);
   };
 
   const changeUpvoteCount = (
-    id: number,
+    requestId: number,
     productRequests: ProductRequest[],
     shouldIncrement: boolean,
   ): ProductRequest[] => {
     return productRequests.map((request) => {
-      if (request.id === id) {
+      if (request.id === requestId) {
         if (shouldIncrement) {
           request.upvotes++;
         } else {
@@ -69,6 +79,13 @@ export function useProductFeedback(data: ProductFeedback) {
     });
   };
 
+  /**
+   * Searches for the product request's ID in the user's `upvotesRequests` array property.
+   * If the property is falsy, return `undefined`. Otherwise, returns a filtered array of IDs.
+   * @param id The ID of the product request.
+   * @param user
+   * @return Returns `undefined` if user does not have a `upvotesRequests` property.
+   */
   const removeUpvoteRequestId = (
     id: number,
     user: User,
