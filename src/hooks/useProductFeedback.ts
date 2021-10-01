@@ -87,37 +87,39 @@ export function useProductFeedback(data: ProductFeedback) {
   };
 
   /**
-   * Pushes a `Comment` to a product request's `comments` array property.
+   * Pushes a `Comment` to a product request's `comments` array property. The `id` is
+   * auto-generated based on the length of `comments`.
    * @param requestId Pass the `id` from the object of type `ProductRequest`.
    * @param comment
    * If the product request's `comments` property is falsy, initialize it with an empty
    * array and give its `id` a value of `1`. If the array has 1 or more comments, then
-   * add the comment to the end the `comments` array and give its ID a value of
-   * `comments.length`
+   * add the comment to the end the `comments` array and give its `id` a value of
+   * `comments.length`.
    */
   const addComment = (
     requestId: number,
     comment: { content: string; user: User },
   ): void => {
     let requestsCopy: ProductRequest[] = [...feedback.productRequests];
-    let finalCommentId: number;
+    let commentId: number;
 
     requestsCopy.forEach((request) => {
       if (request.id === requestId) {
         if (request.comments) {
-          finalCommentId = request.comments.length + 1;
+          commentId = request.comments.length + 1;
           request.comments.push({
-            id: finalCommentId,
+            id: commentId,
             content: comment.content,
             user: comment.user,
           });
         } else {
-          request.comments = [];
-          request.comments.push({
-            id: 1,
-            content: comment.content,
-            user: comment.user,
-          });
+          request.comments = [
+            {
+              id: 1,
+              content: comment.content,
+              user: comment.user,
+            },
+          ];
         }
       }
     });
