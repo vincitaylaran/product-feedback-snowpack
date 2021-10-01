@@ -3,6 +3,7 @@ import type { ProductFeedback } from '../interfaces/productFeedback.interface';
 import type {
   ProductRequest,
   Reply,
+  ProductRequestCategory,
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
 
@@ -215,6 +216,19 @@ export function useProductFeedback(data: ProductFeedback) {
     return commentCount;
   };
 
+  /**
+   *
+   * @param category
+   */
+  const filterByCategory = (
+    category: 'bug' | 'feature' | 'enhancement',
+  ): void => {
+    let requestsCopy = [...feedback.productRequests];
+
+    requestsCopy.filter((request) => request.category === category);
+    setFeedback({ ...feedback, productRequests: requestsCopy });
+  };
+
   return {
     feedback,
     upvoteProductRequest,
@@ -225,5 +239,6 @@ export function useProductFeedback(data: ProductFeedback) {
     findProductRequest,
     sortProductRequestsByUpvotes,
     sortProductRequestsByCommentsCount,
+    filterByCategory,
   };
 }
