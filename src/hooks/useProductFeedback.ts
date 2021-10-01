@@ -180,12 +180,10 @@ export function useProductFeedback(data: ProductFeedback) {
     let requestsCopy: ProductRequest[] = [...feedback.productRequests];
 
     requestsCopy.sort((a, b) => {
-      let aCommentsCount: number;
-      let bCommentsCount: number;
+      let aCommentsCount: number = 0;
+      let bCommentsCount: number = 0;
 
-      if (!a.comments) {
-        aCommentsCount = 0;
-      } else {
+      if (a.comments) {
         aCommentsCount = a.comments.length;
 
         // Count comment's replies to overall comment count
@@ -194,9 +192,7 @@ export function useProductFeedback(data: ProductFeedback) {
         });
       }
 
-      if (!b.comments) {
-        bCommentsCount = 0;
-      } else {
+      if (b.comments) {
         bCommentsCount = b.comments.length;
 
         // Count comment's replies to overall comment count
