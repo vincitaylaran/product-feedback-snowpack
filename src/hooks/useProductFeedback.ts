@@ -220,9 +220,7 @@ export function useProductFeedback(data: ProductFeedback) {
    *
    * @param category
    */
-  const filterByCategory = (
-    category: 'bug' | 'feature' | 'enhancement',
-  ): void => {
+  const filterByCategory = (category: ProductRequestCategory): void => {
     let requestsCopy = [...feedback.productRequests];
 
     requestsCopy.filter((request) => request.category === category);
