@@ -132,6 +132,8 @@ export function useProductFeedback(data: ProductFeedback) {
    * @param requestId Pass the `id` from object of type `ProductRequest`.
    * @param commentId Pass the `id` from object of type `Comment`
    * @param reply
+   *
+   * If the comment has no replies, initialize it with a reply.
    */
   const replyToComment = (
     requestId: number,
@@ -147,6 +149,8 @@ export function useProductFeedback(data: ProductFeedback) {
             if (comment.id === commentId) {
               if (comment.replies) {
                 comment.replies.push(reply);
+              } else {
+                comment.replies = [reply];
               }
             }
           });
