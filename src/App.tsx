@@ -36,12 +36,16 @@ function App({}: AppProps) {
             <h2>Feedback Board</h2>
           </Rainbox>
           <FilterBox />
-          <Roadmap />
+          <Roadmap productRequests={feedback.productRequests} />
         </Stack>
         <Stack>
           <OptionBanner suggestionLength={feedback.productRequests.length} />
           {feedback.productRequests.map((request) => (
-            <RequestCard key={request.id} request={request} />
+            <RequestCard
+              key={request.id}
+              request={request}
+              upvoteProductRequest={upvoteProductRequest}
+            />
           ))}
         </Stack>
       </MainGrid>
