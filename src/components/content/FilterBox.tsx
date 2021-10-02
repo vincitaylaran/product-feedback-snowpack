@@ -8,7 +8,7 @@ import PillButton from '../PillButton';
 
 import styles from './FilterBox.module.scss';
 
-type Filter = [string, ProductRequestCategory | 'all'];
+type Filter = [string, ProductRequestCategoryFilters];
 const filters: Filter[] = [
   ['All', 'all'],
   ['Bug', ProductRequestCategory.Bug],
