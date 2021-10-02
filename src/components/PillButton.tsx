@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import style from './PillButton.module.scss';
 
@@ -6,10 +6,14 @@ interface PillButtonProps {
   text?: string;
   active: boolean;
   children?: React.ReactNode;
+  onClick: () => void;
 }
-function PillButton({ text, active, children }: PillButtonProps) {
+function PillButton({ text, active, children, onClick }: PillButtonProps) {
   return (
-    <button className={`${style.pill_button} ${active ? style.active : ''}`}>
+    <button
+      onClick={() => onClick()}
+      className={`${style.pill_button} ${active ? style.active : ''}`}
+    >
       {text || children}
     </button>
   );

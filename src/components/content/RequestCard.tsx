@@ -3,7 +3,7 @@ import React from 'react';
 import type {
   ProductRequest,
   ProductRequestCategory,
-} from 'src/interfaces/productRequest.interface';
+} from '../../interfaces/productRequest.interface';
 import Card from '../Card';
 import PillButton from '../PillButton';
 import ArrowUp from '../../../public/assets/shared/icon-arrow-up.svg';
@@ -84,7 +84,11 @@ function RequestDetails({ title, description, category }: RequestDetailsProps) {
     <div className={styles.requestDetails}>
       <h3 className={styles.requestDetails__title}>{title}</h3>
       <p className={styles.requestDetails__description}>{description}</p>
-      <PillButton text={formatCategory(category)} active={false} />
+      <PillButton
+        onClick={() => null}
+        text={formatCategory(category)}
+        active={false}
+      />
     </div>
   );
 }

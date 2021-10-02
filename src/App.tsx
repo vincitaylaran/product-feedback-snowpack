@@ -16,6 +16,7 @@ interface AppProps {}
 function App({}: AppProps) {
   const {
     feedback,
+    categoryFilter,
     upvoteProductRequest,
     addComment,
     replyToComment,
@@ -35,7 +36,10 @@ function App({}: AppProps) {
             <h1>Frontend Mentor</h1>
             <h2>Feedback Board</h2>
           </Rainbox>
-          <FilterBox />
+          <FilterBox
+            currentFilter={categoryFilter}
+            filterByCategory={filterByCategory}
+          />
           <Roadmap />
         </Stack>
         <Stack>

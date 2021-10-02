@@ -37,7 +37,9 @@ function OptionsDropdown({}: OptionsDropdownProps) {
       <span>Sort by :</span>
       <select name="sort_options" className={styles.dropdown__select}>
         {Object.entries(SortOrder).map(([key, value]) => (
-          <option value={key}>{value}</option>
+          <option key={key} value={key}>
+            {value}
+          </option>
         ))}
       </select>
       <div className={styles.dropdown__downarrow}></div>
