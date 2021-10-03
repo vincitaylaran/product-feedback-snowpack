@@ -4,11 +4,14 @@ import type {
   ProductRequest,
   Reply,
   ProductRequestCategory,
+  ProductRequestCategoryFilters,
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
 
 export function useProductFeedback(data: ProductFeedback) {
   const [feedback, setFeedback] = useState<ProductFeedback>(data);
+  const [categoryFilter, setCategoryFilter] =
+    useState<ProductRequestCategoryFilters>('all');
 
   const createProductRequest = (productRequest: ProductRequest): void => {
     const requestsCopy: ProductRequest[] = [...feedback.productRequests];
@@ -239,17 +242,25 @@ export function useProductFeedback(data: ProductFeedback) {
     return commentCount;
   };
 
-  const filterByCategory = (category: ProductRequestCategory): void => {
-    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
-    let filtered: ProductRequest[] = requestsCopy.filter(
-      (request) => request.category === category,
-    );
+  const filterByCategory = (category: ProductRequestCategoryFilters): void => {
+    if (category === 'all')
+      setFeedback({
+        ...feedback,
+        productRequests: data.productRequests,
+      });
+    else {
+      let filtered: ProductRequest[] = data.productRequests.filter(
+        (request) => request.category === category,
+      );
 
-    setFeedback({ ...feedback, productRequests: filtered });
+      setFeedback({ ...feedback, productRequests: filtered });
+    }
+    setCategoryFilter(category);
   };
 
   return {
     feedback,
+    categoryFilter,
     upvoteProductRequest,
     addComment,
     replyToComment,

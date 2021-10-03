@@ -16,6 +16,7 @@ interface AppProps {}
 function App({}: AppProps) {
   const {
     feedback,
+    categoryFilter,
     upvoteProductRequest,
     addComment,
     replyToComment,

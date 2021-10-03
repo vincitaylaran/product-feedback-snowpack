@@ -16,6 +16,8 @@ export enum ProductRequestCategory {
   Bug = 'bug',
 }
 
+export type ProductRequestCategoryFilters = ProductRequestCategory | 'all';
+
 export enum ProductRequestStatus {
   Live = 'live',
   InProgress = 'in-progress',

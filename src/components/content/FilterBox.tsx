@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  ProductRequestCategory,
+  ProductRequestCategoryFilters,
+} from '../../interfaces/productRequest.interface';
 import Card from '../Card';
 import PillButton from '../PillButton';
 
 import styles from './FilterBox.module.scss';
 
-type Filter = [string, boolean];
+type Filter = [string, ProductRequestCategoryFilters];
 const filters: Filter[] = [
-  ['All', true],
-  ['UI', false],
-  ['UX', false],
-  ['Bug', false],
-  ['Enhancement', false],
-  ['Feature', false],
+  ['All', 'all'],
+  ['Bug', ProductRequestCategory.Bug],
+  ['Enhancement', ProductRequestCategory.Enhancement],
+  ['Feature', ProductRequestCategory.Feature],
 ];
 
-interface FilterBoxProps {}
-function FilterBox({}: FilterBoxProps) {
+interface FilterBoxProps {
+  currentFilter: ProductRequestCategoryFilters;
+  filterByCategory: (categoryFilter: ProductRequestCategoryFilters) => void;
+}
+function FilterBox({ currentFilter, filterByCategory }: FilterBoxProps) {
   return (
     <Card className={styles.filter_box}>
-      {filters.map(([text, active]) => (
-        <PillButton key={text} text={text} active={active} />
+      {filters.map(([text, categoryFilter]) => (
+        <PillButton
+          key={categoryFilter}
+          text={text}
+          active={currentFilter == categoryFilter}
+          onClick={() => filterByCategory(categoryFilter)}
+        />
       ))}
     </Card>
   );
