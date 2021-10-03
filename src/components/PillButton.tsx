@@ -6,10 +6,23 @@ interface PillButtonProps {
   text?: string;
   active: boolean;
   children?: React.ReactNode;
+  onClick: () => void;
+  clickable: boolean;
 }
-function PillButton({ text, active, children }: PillButtonProps) {
+function PillButton({
+  text,
+  active,
+  children,
+  clickable,
+  onClick,
+}: PillButtonProps) {
   return (
-    <button className={`${style.pill_button} ${active ? style.active : ''}`}>
+    <button
+      onClick={() => onClick()}
+      className={`${style.pill_button} ${active ? style.active : ''} ${
+        clickable ? style.clickable : ''
+      }`}
+    >
       {text || children}
     </button>
   );

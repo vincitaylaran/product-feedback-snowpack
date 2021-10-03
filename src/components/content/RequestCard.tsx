@@ -84,7 +84,12 @@ function RequestDetails({ title, description, category }: RequestDetailsProps) {
     <div className={styles.requestDetails}>
       <h3 className={styles.requestDetails__title}>{title}</h3>
       <p className={styles.requestDetails__description}>{description}</p>
-      <PillButton text={formatCategory(category)} active={false} />
+      <PillButton
+        onClick={() => null}
+        text={formatCategory(category)}
+        active={false}
+        clickable={false}
+      />
     </div>
   );
 }
