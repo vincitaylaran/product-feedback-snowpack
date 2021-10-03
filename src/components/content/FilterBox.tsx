@@ -25,6 +25,7 @@ function FilterBox({ currentFilter, filterByCategory }: FilterBoxProps) {
     <Card className={styles.filter_box}>
       {filters.map(([text, categoryFilter]) => (
         <PillButton
+          clickable
           key={categoryFilter}
           text={text}
           active={currentFilter == categoryFilter}
