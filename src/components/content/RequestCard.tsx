@@ -3,7 +3,7 @@ import React from 'react';
 import type {
   ProductRequest,
   ProductRequestCategory,
-} from 'src/interfaces/productRequest.interface';
+} from '../../interfaces/productRequest.interface';
 import Card from '../Card';
 import PillButton from '../PillButton';
 import ArrowUp from '../../../public/assets/shared/icon-arrow-up.svg';
@@ -13,48 +13,37 @@ import styles from './RequestCard.module.scss';
 
 interface RequestCardProps {
   request: ProductRequest;
+  upvoteProductRequest: (requestId: number) => void;
 }
 
-function RequestCard({ request }: RequestCardProps) {
-  // Returns the number of comments in a product request, including replies.
-  const getCommentCount = (): number => {
-    let commentCount: number = 0;
-
-    if (request.comments) {
-      commentCount = request.comments.length;
-      request.comments.forEach((comment) => {
-        if (comment.replies) {
-          commentCount += comment.replies.length;
-        }
-      });
-    }
-
-    return commentCount;
-  };
-
+function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
   return (
     <Card className={styles.requestCard}>
-      <UpvoteButton upvotes={request.upvotes} />
+      <UpvoteButton
+        upvotes={request.upvotes}
+        upvoteProductRequest={() => upvoteProductRequest(request.id)}
+      />
       <RequestDetails
         title={request.title}
         description={request.description}
         category={request.category}
       />
-      <Comments commentCount={getCommentCount()} />
+      <Comments commentCount={(request.comments || []).length} />
     </Card>
   );
 }
 
 interface UpvoteButtonProps {
   upvotes: number;
+  upvoteProductRequest: () => void;
 }
 
-function UpvoteButton({ upvotes }: UpvoteButtonProps) {
+function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
   return (
-    <div className={styles.upvotes}>
+    <button className={styles.upvotes} onClick={upvoteProductRequest}>
       <img src={ArrowUp} />
       {upvotes}
-    </div>
+    </button>
   );
 }
 

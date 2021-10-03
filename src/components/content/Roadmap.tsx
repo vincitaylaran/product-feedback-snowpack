@@ -1,28 +1,38 @@
 import React from 'react';
+import { countBy, zipWith } from 'lodash';
 import Card from '../Card';
-import { ProductRequestStatus } from '../../interfaces/productRequest.interface';
+import type {
+  ProductRequest,
+  ProductRequestStatus,
+} from '../../interfaces/productRequest.interface';
 import style from './Roadmap.module.scss';
 
-type RoadMapItem = [ProductRequestStatus, string, number];
-const roadmapItems: RoadMapItem[] = [
-  [ProductRequestStatus.InProgress, 'orange', 1],
-  [ProductRequestStatus.Live, 'purple', 3],
-  [ProductRequestStatus.Planned, 'green', 5],
-  [ProductRequestStatus.Suggestion, 'blue', 2],
-];
+const colors = ['blue', 'orange', 'rebeccapurple', 'teal', 'yellow', 'violet'];
 
-interface RoadmapProps {}
-function Roadmap({}: RoadmapProps) {
+type RoadMapItem = [status: ProductRequestStatus, count: number, color: string];
+
+function mapRoadmap(productRequests: ProductRequest[]): RoadMapItem[] {
+  const roadMapItems = Object.entries(countBy(productRequests, 'status'));
+  const usedColors = colors.slice(0, roadMapItems.length);
+  return zipWith(roadMapItems, usedColors, ([status, value], color) => {
+    return [status || 'unset', value || 0, color || 'red'] as RoadMapItem;
+  });
+}
+
+interface RoadmapProps {
+  productRequests: ProductRequest[];
+}
+function Roadmap({ productRequests }: RoadmapProps) {
   return (
     <Card className={style.roadmap}>
       <div className={style.header}>
         <h2>Roadmap</h2>
         <a>View</a>
       </div>
-      {roadmapItems.map(([label, color, value]) => (
-        <div key={label} className={style.item}>
+      {mapRoadmap(productRequests).map(([status, value, color]) => (
+        <div key={status} className={style.item}>
           <Circle height="8px" color={color} className={style.dot} />
-          <span>{formatKeyString(label)}</span>
+          <span>{formatKeyString(status)}</span>
           <span className={style.value}>{value}</span>
         </div>
       ))}

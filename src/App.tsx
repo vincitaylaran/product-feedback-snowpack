@@ -14,8 +14,19 @@ import RequestCard from './components/content/RequestCard';
 interface AppProps {}
 
 function App({}: AppProps) {
-  const { feedback, upvoteProductRequest, addComment, replyToComment } =
-    useProductFeedback(data);
+  const {
+    feedback,
+    categoryFilter,
+    upvoteProductRequest,
+    addComment,
+    replyToComment,
+    createProductRequest,
+    deleteProductRequest,
+    findProductRequest,
+    sortProductRequestsByUpvotes,
+    sortProductRequestsByCommentsCount,
+    filterByCategory,
+  } = useProductFeedback(data);
 
   return (
     <PageContainer>
@@ -25,13 +36,20 @@ function App({}: AppProps) {
             <h1>Frontend Mentor</h1>
             <h2>Feedback Board</h2>
           </Rainbox>
-          <FilterBox />
+          <FilterBox
+            currentFilter={categoryFilter}
+            filterByCategory={filterByCategory}
+          />
           <Roadmap />
         </Stack>
         <Stack>
           <OptionBanner suggestionLength={feedback.productRequests.length} />
           {feedback.productRequests.map((request) => (
-            <RequestCard key={request.id} request={request} />
+            <RequestCard
+              key={request.id}
+              request={request}
+              upvoteProductRequest={upvoteProductRequest}
+            />
           ))}
         </Stack>
       </MainGrid>
