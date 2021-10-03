@@ -7,17 +7,16 @@
 }
 
 .requestDetails {
-    & > *:not(:last-child) {
-        margin-bottom: 0.8rem;
-    }
-    &__title {
-        font-weight: 800;
-    }
-    &__description {
-        font-size: 1rem;
-    }
+  & > *:not(:last-child) {
+    margin-bottom: 0.8rem;
+  }
+  &__title {
+    font-weight: 800;
+  }
+  &__description {
+    font-size: 1rem;
+  }
 }
-
 
 .upvotes {
   min-width: 3rem;
@@ -34,20 +33,24 @@
     // transform: scale(0.5);
     padding-bottom: 0.2rem;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .comments {
-    margin-left: auto;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-weight: 700;
-    
-    & > *:first-child {
-        margin-right: 1rem;
-    }
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: 700;
+
+  & > *:first-child {
+    margin-right: 1rem;
+  }
 }
 .zero {
-    color: colors.$color_grey--md;
+  color: colors.$color_grey--md;
 }
