@@ -35,8 +35,11 @@ function App({}: AppProps) {
             <h1>Frontend Mentor</h1>
             <h2>Feedback Board</h2>
           </Rainbox>
-          <FilterBox />
-          <Roadmap productRequests={feedback.productRequests} />
+          <FilterBox
+            currentFilter={categoryFilter}
+            filterByCategory={filterByCategory}
+          />
+          <Roadmap />
         </Stack>
         <Stack>
           <OptionBanner suggestionLength={feedback.productRequests.length} />
