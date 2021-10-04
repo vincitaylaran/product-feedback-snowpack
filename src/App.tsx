@@ -40,7 +40,7 @@ function App({}: AppProps) {
             currentFilter={categoryFilter}
             filterByCategory={filterByCategory}
           />
-          <Roadmap />
+          <Roadmap productRequests={feedback.productRequests} />
         </Stack>
         <Stack>
           <OptionBanner suggestionLength={feedback.productRequests.length} />
