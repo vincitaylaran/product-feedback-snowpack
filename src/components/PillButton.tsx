@@ -22,6 +22,7 @@ function PillButton({
       className={`${style.pill_button} ${active ? style.active : ''} ${
         clickable ? style.clickable : ''
       }`}
+      data-testid="request-category"
     >
       {text || children}
     </button>
