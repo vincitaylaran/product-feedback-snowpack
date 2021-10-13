@@ -40,7 +40,11 @@ interface UpvoteButtonProps {
 
 function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
   return (
-    <button className={styles.upvotes} onClick={upvoteProductRequest}>
+    <button
+      className={styles.upvotes}
+      onClick={upvoteProductRequest}
+      data-testid="upvote-btn"
+    >
       <img src={ArrowUp} />
       {upvotes}
     </button>
@@ -55,7 +59,10 @@ function Comments({ commentCount }: CommentsProps) {
   return (
     <div className={styles.comments}>
       <img src={CommentIcon} />{' '}
-      <span className={commentCount === 0 ? styles.zero : ''}>
+      <span
+        data-testid="request-commentCount"
+        className={commentCount === 0 ? styles.zero : ''}
+      >
         {commentCount}
       </span>
     </div>
@@ -71,8 +78,15 @@ interface RequestDetailsProps {
 function RequestDetails({ title, description, category }: RequestDetailsProps) {
   return (
     <div className={styles.requestDetails}>
-      <h3 className={styles.requestDetails__title}>{title}</h3>
-      <p className={styles.requestDetails__description}>{description}</p>
+      <h3 data-testid="request-title" className={styles.requestDetails__title}>
+        {title}
+      </h3>
+      <p
+        data-testid="request-description"
+        className={styles.requestDetails__description}
+      >
+        {description}
+      </p>
       <PillButton
         onClick={() => null}
         text={formatCategory(category)}
