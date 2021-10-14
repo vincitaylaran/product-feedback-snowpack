@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ProductFeedback } from '../interfaces/productFeedback.interface';
 import type {
   ProductRequest,
@@ -8,10 +8,80 @@ import type {
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
 
-export function useProductFeedback(data: ProductFeedback) {
-  const [feedback, setFeedback] = useState<ProductFeedback>(data);
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from '@apollo/client';
+
+export function useProductFeedback() {
+  const [feedback, setFeedback] = useState<ProductFeedback>({
+    currentUser: { image: '', name: '', username: '' },
+    productRequests: [],
+  });
+
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
+
+  useEffect(() => {
+    const client = new ApolloClient({
+      uri: 'https://fem-product-feedback.herokuapp.com/graphql',
+      cache: new InMemoryCache(),
+    });
+
+    client
+      .query({
+        query: gql`
+          {
+            User(id: 1) {
+              id
+              name
+              username
+              upvotes {
+                id
+              }
+              image
+            }
+            AllRequests {
+              id
+              title
+              description
+              category
+              status
+              user {
+                id
+              }
+              comments {
+                id
+                content
+              }
+              upvotes {
+                id
+              }
+            }
+          }
+        `,
+      })
+      .then((result) => {
+        const { data } = result;
+        const { User, AllRequests } = data;
+        const productFeedback: ProductFeedback = {
+          currentUser: {
+            image: User.image,
+            name: User.name,
+            username: User.username,
+            upvotedRequests: User.upvotes,
+          },
+          productRequests: [...AllRequests].map((request) => {
+            return { ...request, upvotes: request.upvotes.length };
+          }),
+        };
+
+        setFeedback(productFeedback);
+      });
+  }, []);
 
   const createProductRequest = (productRequest: ProductRequest): void => {
     const requestsCopy: ProductRequest[] = [...feedback.productRequests];
