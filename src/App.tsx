@@ -1,6 +1,5 @@
 import React from 'react';
 import { useProductFeedback } from './hooks/useProductFeedback';
-import data from './data.json';
 import Rainbox from './components/content/Rainbox';
 import FilterBox from './components/content/FilterBox';
 import Roadmap from './components/content/Roadmap';
@@ -26,7 +25,7 @@ function App({}: AppProps) {
     sortProductRequestsByUpvotes,
     sortProductRequestsByCommentsCount,
     filterByCategory,
-  } = useProductFeedback(data);
+  } = useProductFeedback();
 
   return (
     <PageContainer>
