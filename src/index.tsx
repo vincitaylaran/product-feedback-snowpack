@@ -2,10 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.scss';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const uri = 'https://fem-product-feedback.herokuapp.com/graphql';
+
+const client = new ApolloClient({
+  uri,
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
