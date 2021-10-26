@@ -5,7 +5,7 @@ export interface ProductRequest {
   title: string;
   category: string;
   status: string;
-  upvotes: number;
+  upvotes: User[];
   description: string;
   comments?: Comment[];
 }
