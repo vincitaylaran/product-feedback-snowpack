@@ -17,10 +17,12 @@ interface RequestCardProps {
 }
 
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
+  console.log('request: ', request);
+
   return (
     <Card className={styles.requestCard}>
       <UpvoteButton
-        upvotes={request.upvotes}
+        upvotes={request.upvotes.length}
         upvoteProductRequest={() => upvoteProductRequest(request.id)}
       />
       <RequestDetails

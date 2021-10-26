@@ -10,6 +10,34 @@ import MainGrid from './components/MainGrid';
 import OptionBanner from './components/content/OptionBanner';
 import RequestCard from './components/content/RequestCard';
 
+import { useQuery, gql } from '@apollo/client';
+import type { ProductRequest } from './interfaces/productRequest.interface';
+
+const PRODUCT_REQUESTS = gql`
+  {
+    AllRequests {
+      id
+      title
+      category
+      status
+      upvotes {
+        id
+      }
+      description
+      comments {
+        id
+        content
+        user {
+          id
+          name
+          username
+          image
+        }
+      }
+    }
+  }
+`;
+
 interface AppProps {}
 
 function App({}: AppProps) {
@@ -27,6 +55,12 @@ function App({}: AppProps) {
     filterByCategory,
   } = useProductFeedback();
 
+  const { data, loading, error } = useQuery(PRODUCT_REQUESTS);
+
+  if (loading) return <h1>Loading...</h1>;
+  if (error) console.error('error :(');
+  if (data) console.log(data.AllRequests);
+
   return (
     <PageContainer>
       <MainGrid>
@@ -43,13 +77,14 @@ function App({}: AppProps) {
         </Stack>
         <Stack>
           <OptionBanner suggestionLength={feedback.productRequests.length} />
-          {feedback.productRequests.map((request) => (
-            <RequestCard
-              key={request.id}
-              request={request}
-              upvoteProductRequest={upvoteProductRequest}
-            />
-          ))}
+          {data.AllRequests.map((request: ProductRequest) => {
+            return (
+              <RequestCard
+                request={request}
+                upvoteProductRequest={() => undefined}
+              />
+            );
+          })}
         </Stack>
       </MainGrid>
     </PageContainer>
