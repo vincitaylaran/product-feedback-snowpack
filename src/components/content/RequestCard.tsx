@@ -17,8 +17,6 @@ interface RequestCardProps {
 }
 
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
-  console.log('request: ', request);
-
   return (
     <Card className={styles.requestCard}>
       <UpvoteButton
@@ -47,7 +45,7 @@ function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
       onClick={upvoteProductRequest}
       data-testid="upvote-btn"
     >
-      <img src={ArrowUp} />
+      <img src={ArrowUp} alt="Arrow pointing up" />
       {upvotes}
     </button>
   );
@@ -60,7 +58,7 @@ interface CommentsProps {
 function Comments({ commentCount }: CommentsProps) {
   return (
     <div className={styles.comments}>
-      <img src={CommentIcon} />{' '}
+      <img src={CommentIcon} alt="Icon of comment bubble" />{' '}
       <span
         data-testid="request-commentCount"
         className={commentCount === 0 ? styles.zero : ''}

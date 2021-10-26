@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   ProductRequestCategory,
   ProductRequestCategoryFilters,
+  ProductRequest,
 } from '../../interfaces/productRequest.interface';
 import Card from '../Card';
 import PillButton from '../PillButton';

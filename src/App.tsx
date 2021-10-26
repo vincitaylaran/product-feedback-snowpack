@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProductFeedback } from './hooks/useProductFeedback';
 import Rainbox from './components/content/Rainbox';
 import FilterBox from './components/content/FilterBox';
@@ -11,7 +11,10 @@ import OptionBanner from './components/content/OptionBanner';
 import RequestCard from './components/content/RequestCard';
 
 import { useQuery, gql } from '@apollo/client';
-import type { ProductRequest } from './interfaces/productRequest.interface';
+import type {
+  ProductRequest,
+  ProductRequestCategoryFilters,
+} from './interfaces/productRequest.interface';
 
 const PRODUCT_REQUESTS = gql`
   {
@@ -41,25 +44,41 @@ const PRODUCT_REQUESTS = gql`
 interface AppProps {}
 
 function App({}: AppProps) {
-  const {
-    feedback,
-    categoryFilter,
-    upvoteProductRequest,
-    addComment,
-    replyToComment,
-    createProductRequest,
-    deleteProductRequest,
-    findProductRequest,
-    sortProductRequestsByUpvotes,
-    sortProductRequestsByCommentsCount,
-    filterByCategory,
-  } = useProductFeedback();
-
   const { data, loading, error } = useQuery(PRODUCT_REQUESTS);
+  const [productRequests, setProductRequests] = useState<ProductRequest[]>([]);
+  const [categoryFilter, setCategoryFilter] =
+    useState<ProductRequestCategoryFilters>('all');
+
+  useEffect(() => {
+    if (data) {
+      setProductRequests(data.AllRequests);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      if (categoryFilter === 'all') {
+        setProductRequests(data.AllRequests);
+      } else {
+        setProductRequests(
+          data.AllRequests.filter(
+            (request: ProductRequest) =>
+              request.category.toLowerCase() === categoryFilter,
+          ),
+        );
+      }
+    }
+  }, [categoryFilter]);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.error('error :(');
   if (data) console.log(data.AllRequests);
+
+  const filterByCategory = (
+    categoryFilter: ProductRequestCategoryFilters,
+  ): void => {
+    setCategoryFilter(categoryFilter);
+  };
 
   return (
     <PageContainer>
@@ -73,18 +92,17 @@ function App({}: AppProps) {
             currentFilter={categoryFilter}
             filterByCategory={filterByCategory}
           />
-          <Roadmap productRequests={feedback.productRequests} />
+          <Roadmap productRequests={productRequests} />
         </Stack>
         <Stack>
-          <OptionBanner suggestionLength={feedback.productRequests.length} />
-          {data.AllRequests.map((request: ProductRequest) => {
-            return (
-              <RequestCard
-                request={request}
-                upvoteProductRequest={() => undefined}
-              />
-            );
-          })}
+          <OptionBanner suggestionLength={productRequests.length} />
+          {productRequests.map((request: ProductRequest) => (
+            <RequestCard
+              request={request}
+              upvoteProductRequest={() => undefined}
+              key={request.id}
+            />
+          ))}
         </Stack>
       </MainGrid>
     </PageContainer>
