@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: colors.$color_blue-100;
+  background-color: colors.$blue-100;
   border-radius: 0.5rem;
   margin-right: 2rem;
   padding: 0.6rem;
@@ -52,5 +52,5 @@
   }
 }
 .zero {
-  color: colors.$color_grey--md;
+  color: colors.$grey--md;
 }

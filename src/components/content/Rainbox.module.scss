@@ -1,19 +1,18 @@
 @use '../../shared_styles/colors.scss';
 
 .rainbox {
-    background-image: url("./assets/suggestions/desktop/background-header.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: colors.$color_white;
-    padding-top: 5rem;
-    & h1 {
-        font-size: 1.4rem; 
-        font-weight: 800;
-    }
-    & h2 {
-        font-size: 1.2rem; 
-        font-weight: 500;
-    }
+  background-image: url('./assets/suggestions/desktop/background-header.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: colors.$white;
+  padding-top: 5rem;
+  & h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  & h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
 }
-

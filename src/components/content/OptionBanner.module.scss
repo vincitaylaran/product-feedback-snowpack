@@ -3,8 +3,8 @@
 .optionbanner {
   display: flex;
   align-items: center;
-  background-color: colors.$color_blue-900;
-  color: colors.$color_white;
+  background-color: colors.$blue-900;
+  color: colors.$white;
   & > * {
     padding-right: 1rem;
   }
@@ -16,10 +16,10 @@
 
 .addFeedbackButton {
   margin-left: auto;
-  background-color: colors.$color_purple;
+  background-color: colors.$purple;
   padding: 1rem;
   border-radius: 0.5rem;
-  color: colors.$color_white;
+  color: colors.$white;
   font-size: 1.1rem;
   font-weight: 600;
   & > *:first-child {
@@ -41,7 +41,7 @@
   }
 }
 .dropdown__select {
-  color: colors.$color_white;
+  color: colors.$white;
   font-weight: 800;
   position: relative;
   width: 150%;
