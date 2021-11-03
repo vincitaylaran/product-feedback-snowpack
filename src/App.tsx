@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useProductFeedback } from './hooks/useProductFeedback';
 import Rainbox from './components/content/Rainbox';
 import FilterBox from './components/content/FilterBox';
 import Roadmap from './components/content/Roadmap';
@@ -10,48 +9,29 @@ import MainGrid from './components/MainGrid';
 import OptionBanner from './components/content/OptionBanner';
 import RequestCard from './components/content/RequestCard';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+
 import type {
   ProductRequest,
   ProductRequestCategoryFilters,
 } from './interfaces/productRequest.interface';
+import type { User } from './interfaces/user.interface';
 
-const PRODUCT_REQUESTS = gql`
-  {
-    AllRequests {
-      id
-      title
-      category
-      status
-      upvotes {
-        id
-      }
-      description
-      comments {
-        id
-        content
-        user {
-          id
-          name
-          username
-          image
-        }
-      }
-    }
-  }
-`;
+import { PRODUCT_REQUESTS } from './graphql/queries';
 
 interface AppProps {}
 
 function App({}: AppProps) {
   const { data, loading, error } = useQuery(PRODUCT_REQUESTS);
   const [productRequests, setProductRequests] = useState<ProductRequest[]>([]);
+  const [currentUser, setCurrentUser] = useState<User>();
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
 
   useEffect(() => {
     if (data) {
       setProductRequests(data.AllRequests);
+      setCurrentUser(data.User);
     }
   }, [data]);
 
@@ -72,12 +52,28 @@ function App({}: AppProps) {
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.error('error :(');
-  if (data) console.log(data.AllRequests);
+  if (data) {
+    console.log('Requests', data.AllRequests);
+    console.log('User', data.User);
+  }
 
   const filterByCategory = (
     categoryFilter: ProductRequestCategoryFilters,
   ): void => {
     setCategoryFilter(categoryFilter);
+  };
+
+  const upvoteRequest = (requestId: number): void => {
+    /**
+     * find request using ID argument
+     * if request exists
+     *  if user had previously upvoted the same request
+     *    remove user from request's "upvotes" array
+     *    remove request from user's "upvotes" array
+     *  else
+     *    push user to request's "upvotes" array
+     *    add request to user's "upvotes" array
+     */
   };
 
   return (
@@ -99,7 +95,7 @@ function App({}: AppProps) {
           {productRequests.map((request: ProductRequest) => (
             <RequestCard
               request={request}
-              upvoteProductRequest={() => undefined}
+              upvoteProductRequest={() => {}}
               key={request.id}
             />
           ))}
