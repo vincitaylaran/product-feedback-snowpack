@@ -22,6 +22,7 @@ function mapRoadmap(productRequests: ProductRequest[]): RoadMapItem[] {
 interface RoadmapProps {
   productRequests: ProductRequest[];
 }
+
 function Roadmap({ productRequests }: RoadmapProps) {
   return (
     <Card className={style.roadmap}>
@@ -32,7 +33,7 @@ function Roadmap({ productRequests }: RoadmapProps) {
       {mapRoadmap(productRequests).map(([status, value, color]) => (
         <div key={status} className={style.item}>
           <Circle height="8px" color={color} className={style.dot} />
-          <span>{formatKeyString(status)}</span>
+          <span className={style.status}>{formatKeyString(status)}</span>
           <span className={style.value}>{value}</span>
         </div>
       ))}

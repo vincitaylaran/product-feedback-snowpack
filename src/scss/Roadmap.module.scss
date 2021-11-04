@@ -1,25 +1,48 @@
+@use './shared/colors.scss';
+
 .roadmap {
-    & h2 {
-        font-weight: 800;
-    }
-    
+  h2 {
+    font-weight: 800;
+    color: colors.$blue-900;
+    font-size: 1.125rem;
+  }
+
+  a {
+    color: colors.$blue-500;
+    font-size: 0.8125rem;
+    text-decoration: underline;
+    font-weight: 600;
+  }
 }
+
 .header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
+
 .item {
-    display: flex; 
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 0.5rem;
+
+  .status,
+  .value {
+    color: colors.$blue-900;
+  }
+
+  .value {
+    font-weight: bold;
+  }
 }
+
 .dot {
-    margin-right: 0.5rem;
+  margin-right: 1rem;
 }
+
 .value {
-    display: inline-flex;
-    margin-left: auto;
+  display: inline-flex;
+  margin-left: auto;
 }
