@@ -19,7 +19,7 @@ function mapRoadmap(productRequests: ProductRequest[]): RoadMapItem[] {
   });
 }
 
-interface RoadmapProps {
+export interface RoadmapProps {
   productRequests: ProductRequest[];
 }
 

@@ -17,7 +17,7 @@ const filters: Filter[] = [
   ['Feature', ProductRequestCategory.Feature],
 ];
 
-interface FilterBoxProps {
+export interface FilterBoxProps {
   currentFilter: ProductRequestCategoryFilters;
   filterByCategory: (categoryFilter: ProductRequestCategoryFilters) => void;
 }
