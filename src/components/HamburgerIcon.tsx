@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import styles from '../scss/HamburgerIcon.module.scss';
 
-function HamburgerIcon(): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+interface HamburgerIconProps {
+  onClick: () => void;
+  isOpen: boolean;
+}
 
-  const toggleButton = (): void => {
-    setIsOpen(!isOpen);
-  };
+function HamburgerIcon({ onClick, isOpen }: HamburgerIconProps): JSX.Element {
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // const toggleButton = (): void => {
+  //   setIsOpen(!isOpen);
+  // };
 
   return (
     <div
       className={`${styles.menuBtn} ${isOpen ? styles.open : ''}`}
-      onClick={toggleButton}
+      onClick={onClick}
     >
       <div className={styles.menuBtn__burger}></div>
     </div>
