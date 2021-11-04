@@ -8,6 +8,7 @@ import Stack from './components/Stack';
 import MainGrid from './components/MainGrid';
 import OptionBanner from './components/OptionBanner';
 import RequestCard from './components/RequestCard';
+import HamburgerIcon from './components/HamburgerIcon';
 
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -80,8 +81,11 @@ function App({}: AppProps) {
     <PageContainer>
       <MainGrid>
         <Rainbox>
-          <h1>Frontend Mentor</h1>
-          <h2>Feedback Board</h2>
+          <div>
+            <h1>Frontend Mentor</h1>
+            <h2>Feedback Board</h2>
+          </div>
+          <HamburgerIcon />
         </Rainbox>
       </MainGrid>
     </PageContainer>

@@ -1,0 +1,61 @@
+$hamburger-color: #fff;
+$hamburger-width: 20px;
+$hamburger-height: 3px;
+$hamburger-box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
+$hamburger-transition: all 0.27s ease-out;
+
+.menuBtn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 17px;
+  cursor: pointer;
+  transition: $hamburger-transition;
+  // border: 3px solid $hamburger-color;
+}
+
+.menuBtn__burger {
+  width: $hamburger-width;
+  height: $hamburger-height;
+  background: $hamburger-color;
+  box-shadow: $hamburger-box-shadow;
+  transition: $hamburger-transition;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: $hamburger-width;
+    height: $hamburger-height;
+    background: $hamburger-color;
+    box-shadow: $hamburger-box-shadow;
+    transition: $hamburger-transition;
+  }
+
+  &::before {
+    transform: translateY(-8px);
+  }
+
+  &::after {
+    transform: translateY(8px);
+  }
+}
+
+/* ANIMATION */
+.menuBtn.open {
+  .menuBtn__burger {
+    // transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .menuBtn__burger::before {
+    transform: rotate(-45deg);
+  }
+
+  .menuBtn__burger::after {
+    transform: rotate(45deg);
+  }
+}
