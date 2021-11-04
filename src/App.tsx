@@ -9,6 +9,7 @@ import MainGrid from './components/MainGrid';
 import OptionBanner from './components/OptionBanner';
 import RequestCard from './components/RequestCard';
 import HamburgerIcon from './components/HamburgerIcon';
+import Widgets from './components/Widgets';
 
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -19,6 +20,7 @@ import type {
 import type { User } from './interfaces/user.interface';
 
 import { PRODUCT_REQUESTS } from './graphql/queries';
+import Card from './components/Card';
 
 interface AppProps {}
 
@@ -64,19 +66,6 @@ function App({}: AppProps) {
     setCategoryFilter(categoryFilter);
   };
 
-  const upvoteRequest = (requestId: number): void => {
-    /**
-     * find request using ID argument
-     * if request exists
-     *  if user had previously upvoted the same request
-     *    remove user from request's "upvotes" array
-     *    remove request from user's "upvotes" array
-     *  else
-     *    push user to request's "upvotes" array
-     *    add request to user's "upvotes" array
-     */
-  };
-
   return (
     <PageContainer>
       <MainGrid>
@@ -86,6 +75,10 @@ function App({}: AppProps) {
             <h2>Feedback Board</h2>
           </div>
           <HamburgerIcon />
+          <Widgets>
+            <FilterBox currentFilter="all" filterByCategory={() => {}} />
+            <Roadmap productRequests={productRequests} />
+          </Widgets>
         </Rainbox>
       </MainGrid>
     </PageContainer>
