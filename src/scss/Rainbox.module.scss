@@ -1,6 +1,8 @@
 @use './shared/colors.scss';
 @use './shared/breakpoints.scss';
 
+$rainbox-height: 9vh;
+
 .rainbox {
   background-image: url('./assets/suggestions/desktop/background-header.png');
   background-size: cover;
@@ -21,6 +23,7 @@
   left: 0;
   width: 100%;
   padding: 16px 24px;
+  height: $rainbox-height;
 
   display: flex;
   justify-content: space-between;
