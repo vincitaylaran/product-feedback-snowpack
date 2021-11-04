@@ -4,18 +4,23 @@
 $row-height: min-content;
 
 .widgets {
-  background: colors.$blue-100;
-  //   background: red;
   position: absolute;
   top: 100%;
   right: 0;
-  width: 75%;
   height: 100vh - Rainbox.$rainbox-height;
-  padding: 24px;
 
-  display: -ms-grid;
-  display: grid;
-  gap: 24px;
-  -ms-grid-rows: $row-height;
-  grid-auto-rows: $row-height;
+  .content {
+    padding: 24px;
+    display: -ms-grid;
+    display: grid;
+    gap: 24px;
+    -ms-grid-rows: $row-height;
+    grid-auto-rows: $row-height;
+    background: colors.$blue-100;
+    width: 75vw;
+  }
+}
+
+.widgets.hidden {
+  display: none;
 }
