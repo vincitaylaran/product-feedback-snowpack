@@ -1,0 +1,9 @@
+@use './Rainbox.module.scss';
+
+.shadowBg {
+  position: absolute;
+  height: 100vh - Rainbox.$rainbox-height;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  right: 100%;
+}
