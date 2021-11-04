@@ -3,9 +3,9 @@ import {
   ProductRequestCategory,
   ProductRequestCategoryFilters,
   ProductRequest,
-} from '../../interfaces/productRequest.interface';
-import Card from '../Card';
-import PillButton from '../PillButton';
+} from '../interfaces/productRequest.interface';
+import Card from './Card';
+import PillButton from './PillButton';
 
 import styles from './FilterBox.module.scss';
 

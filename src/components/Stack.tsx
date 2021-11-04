@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Stack.module.scss';
+import style from '../scss/Stack.module.scss';
 
 interface StackProps {
   children: React.ReactNode;

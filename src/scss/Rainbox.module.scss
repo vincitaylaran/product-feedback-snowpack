@@ -1,0 +1,31 @@
+@use './shared/colors.scss';
+@use './shared/breakpoints.scss';
+
+.rainbox {
+  background-image: url('./assets/suggestions/desktop/background-header.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: colors.$white;
+  & h1 {
+    font-size: 0.9375rem;
+    font-weight: bold;
+  }
+  & h2 {
+    font-size: 0.8125rem;
+    font-weight: medium;
+  }
+  border-radius: initial;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 24px;
+}
+
+@media (min-width: breakpoints.$desktop) {
+  .rainbox {
+    padding-top: 5rem;
+    position: initial;
+  }
+}

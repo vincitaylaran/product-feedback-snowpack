@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from '../Card';
+import Card from './Card';
 
-import styles from './Rainbox.module.scss';
+import styles from '../scss/Rainbox.module.scss';
 
 interface RainboxProps {
   children: React.ReactNode;

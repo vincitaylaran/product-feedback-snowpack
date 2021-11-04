@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from '../Card';
-import PillButton from '../PillButton';
+import Card from './Card';
+import PillButton from './PillButton';
 
 import SuggestionIcon from '../../../public/assets/suggestions/icon-suggestions.svg';
 import PlusIcon from '../../../public/assets/shared/icon-plus.svg';
-import styles from './OptionBanner.module.scss';
+import styles from '../scss/OptionBanner.module.scss';
 
 enum SortOrder {
   MostUpvotes = 'Most Upvotes',

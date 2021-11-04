@@ -1,0 +1,8 @@
+@use './shared/breakpoints.scss';
+
+.stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-content: start;
+}

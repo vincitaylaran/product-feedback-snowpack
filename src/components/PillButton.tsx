@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 
-import style from './PillButton.module.scss';
+import style from '../scss/PillButton.module.scss';
 
 interface PillButtonProps {
   text?: string;

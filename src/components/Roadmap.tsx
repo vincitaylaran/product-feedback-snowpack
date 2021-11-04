@@ -1,11 +1,11 @@
 import React from 'react';
 import { countBy, zipWith } from 'lodash';
-import Card from '../Card';
+import Card from './Card';
 import type {
   ProductRequest,
   ProductRequestStatus,
-} from '../../interfaces/productRequest.interface';
-import style from './Roadmap.module.scss';
+} from '../interfaces/productRequest.interface';
+import style from '../scss/Roadmap.module.scss';
 
 const colors = ['blue', 'orange', 'rebeccapurple', 'teal', 'yellow', 'violet'];
 

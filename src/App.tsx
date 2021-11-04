@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Rainbox from './components/content/Rainbox';
-import FilterBox from './components/content/FilterBox';
-import Roadmap from './components/content/Roadmap';
+import Rainbox from './components/Rainbox';
+import FilterBox from './components/FilterBox';
+import Roadmap from './components/Roadmap';
 
 import PageContainer from './components/PageContainer';
 import Stack from './components/Stack';
 import MainGrid from './components/MainGrid';
-import OptionBanner from './components/content/OptionBanner';
-import RequestCard from './components/content/RequestCard';
+import OptionBanner from './components/OptionBanner';
+import RequestCard from './components/RequestCard';
 
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -79,27 +79,10 @@ function App({}: AppProps) {
   return (
     <PageContainer>
       <MainGrid>
-        <Stack>
-          <Rainbox>
-            <h1>Frontend Mentor</h1>
-            <h2>Feedback Board</h2>
-          </Rainbox>
-          <FilterBox
-            currentFilter={categoryFilter}
-            filterByCategory={filterByCategory}
-          />
-          <Roadmap productRequests={productRequests} />
-        </Stack>
-        <Stack>
-          <OptionBanner suggestionLength={productRequests.length} />
-          {productRequests.map((request: ProductRequest) => (
-            <RequestCard
-              request={request}
-              upvoteProductRequest={() => {}}
-              key={request.id}
-            />
-          ))}
-        </Stack>
+        <Rainbox>
+          <h1>Frontend Mentor</h1>
+          <h2>Feedback Board</h2>
+        </Rainbox>
       </MainGrid>
     </PageContainer>
   );
