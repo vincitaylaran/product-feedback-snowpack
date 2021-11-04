@@ -7,7 +7,7 @@ import {
 import Card from './Card';
 import PillButton from './PillButton';
 
-import styles from './FilterBox.module.scss';
+import styles from '../scss/FilterBox.module.scss';
 
 type Filter = [string, ProductRequestCategoryFilters];
 const filters: Filter[] = [
