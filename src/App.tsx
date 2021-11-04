@@ -21,6 +21,7 @@ import type { User } from './interfaces/user.interface';
 
 import { PRODUCT_REQUESTS } from './graphql/queries';
 import Card from './components/Card';
+import ShadowBackground from './components/ShadowBackground';
 
 interface AppProps {}
 
@@ -30,6 +31,7 @@ function App({}: AppProps) {
   const [currentUser, setCurrentUser] = useState<User>();
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
+  const [areWidgetsVisible, setAreWidgetsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) {
@@ -66,6 +68,10 @@ function App({}: AppProps) {
     setCategoryFilter(categoryFilter);
   };
 
+  const toggleWidgets = (): void => {
+    setAreWidgetsVisible(!areWidgetsVisible);
+  };
+
   return (
     <PageContainer>
       <MainGrid>
@@ -74,11 +80,13 @@ function App({}: AppProps) {
             <h1>Frontend Mentor</h1>
             <h2>Feedback Board</h2>
           </div>
-          <HamburgerIcon />
-          <Widgets>
-            <FilterBox currentFilter="all" filterByCategory={() => {}} />
-            <Roadmap productRequests={productRequests} />
-          </Widgets>
+          <HamburgerIcon onClick={toggleWidgets} isOpen={areWidgetsVisible} />
+          <Widgets
+            currentFilter="all"
+            productRequests={productRequests}
+            filterByCategory={() => {}}
+            visible={areWidgetsVisible}
+          />
         </Rainbox>
       </MainGrid>
     </PageContainer>
