@@ -15,15 +15,15 @@ function Widgets({
   visible,
 }: WidgetsProps): JSX.Element {
   return (
-    <div className={`${styles.widgets} ${visible ? '' : styles.hidden}`}>
-      <ShadowBackground />
-      <WidgetsContent>
+    <div className={`${styles.widgets}`}>
+      <ShadowBackground visible={visible} />
+      {/* <WidgetsContent>
         <FilterBox
           currentFilter={currentFilter}
           filterByCategory={filterByCategory}
         />
         <Roadmap productRequests={productRequests} />
-      </WidgetsContent>
+      </WidgetsContent> */}
     </div>
   );
 }
