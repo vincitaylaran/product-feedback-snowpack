@@ -18,9 +18,12 @@ $row-height: min-content;
     grid-auto-rows: $row-height;
     background: colors.$blue-100;
     width: 75vw;
-  }
-}
+    display: none;
+    height: 100%;
+    background: black;
 
-.widgets.hidden {
-  display: none;
+    &.visible {
+      display: block;
+    }
+  }
 }
