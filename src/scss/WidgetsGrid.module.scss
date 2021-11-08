@@ -1,0 +1,19 @@
+@use './shared/breakpoints.scss';
+
+.widgetsGrid {
+  @media (min-width: breakpoints.$tablet) {
+    & {
+      display: -ms-grid;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+  }
+
+  @media (min-width: breakpoints.$desktop) {
+    & {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+    }
+  }
+}
