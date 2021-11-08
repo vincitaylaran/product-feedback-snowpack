@@ -1,4 +1,5 @@
 @use './shared/colors.scss';
+@use './shared/breakpoints.scss';
 
 .roadmap {
   h2 {
@@ -12,6 +13,10 @@
     font-size: 0.8125rem;
     text-decoration: underline;
     font-weight: 600;
+  }
+
+  @media (max-width: breakpoints.$tablet) {
+    display: none;
   }
 }
 
