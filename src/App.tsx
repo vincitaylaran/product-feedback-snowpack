@@ -9,7 +9,8 @@ import MainGrid from './components/MainGrid';
 import OptionBanner from './components/OptionBanner';
 import RequestCard from './components/RequestCard';
 import HamburgerIcon from './components/HamburgerIcon';
-import Widgets from './components/Widgets';
+import Drawer from './components/Drawer';
+import WidgetsGrid from './components/WidgetsGrid';
 
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -23,6 +24,8 @@ import { PRODUCT_REQUESTS } from './graphql/queries';
 import Card from './components/Card';
 import ShadowBackground from './components/ShadowBackground';
 
+import { isViewingFromMobileDevice } from './helper-functions';
+
 interface AppProps {}
 
 function App({}: AppProps) {
@@ -31,7 +34,7 @@ function App({}: AppProps) {
   const [currentUser, setCurrentUser] = useState<User>();
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
-  const [areWidgetsVisible, setAreWidgetsVisible] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true);
 
   useEffect(() => {
     if (data) {
@@ -57,10 +60,6 @@ function App({}: AppProps) {
 
   if (loading) return <h1>Loading...</h1>;
   if (error) console.error('error :(');
-  if (data) {
-    // console.log('Requests', data.AllRequests);
-    // console.log('User', data.User);
-  }
 
   const filterByCategory = (
     categoryFilter: ProductRequestCategoryFilters,
@@ -69,24 +68,38 @@ function App({}: AppProps) {
   };
 
   const toggleWidgets = (): void => {
-    setAreWidgetsVisible(!areWidgetsVisible);
+    setIsDrawerOpen(!isDrawerOpen);
   };
 
   return (
     <>
-      <Rainbox>
-        <div>
-          <h1>Frontend Mentor</h1>
-          <h2>Feedback Board</h2>
-        </div>
-        <HamburgerIcon onClick={toggleWidgets} isOpen={areWidgetsVisible} />
-      </Rainbox>
-      <Widgets
-        currentFilter={categoryFilter}
-        filterByCategory={filterByCategory}
-        productRequests={productRequests}
-        visible={areWidgetsVisible}
-      />
+      <WidgetsGrid>
+        <Rainbox>
+          <div>
+            <h1>Frontend Mentor</h1>
+            <h2>Feedback Board</h2>
+          </div>
+          <HamburgerIcon onClick={toggleWidgets} isOpen={isDrawerOpen} />
+        </Rainbox>
+        <FilterBox
+          currentFilter={categoryFilter}
+          filterByCategory={filterByCategory}
+        />
+        <Roadmap productRequests={productRequests} />
+
+        {isViewingFromMobileDevice() && (
+          <>
+            <ShadowBackground visible={isDrawerOpen} />
+            <Drawer isOpen={isDrawerOpen}>
+              <FilterBox
+                currentFilter={categoryFilter}
+                filterByCategory={filterByCategory}
+              />
+              <Roadmap productRequests={productRequests} />
+            </Drawer>
+          </>
+        )}
+      </WidgetsGrid>
       <PageContainer>
         <MainGrid></MainGrid>
       </PageContainer>
