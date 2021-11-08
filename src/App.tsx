@@ -58,8 +58,8 @@ function App({}: AppProps) {
   if (loading) return <h1>Loading...</h1>;
   if (error) console.error('error :(');
   if (data) {
-    console.log('Requests', data.AllRequests);
-    console.log('User', data.User);
+    // console.log('Requests', data.AllRequests);
+    // console.log('User', data.User);
   }
 
   const filterByCategory = (
@@ -73,23 +73,24 @@ function App({}: AppProps) {
   };
 
   return (
-    <PageContainer>
-      <MainGrid>
-        <Rainbox>
-          <div>
-            <h1>Frontend Mentor</h1>
-            <h2>Feedback Board</h2>
-          </div>
-          <HamburgerIcon onClick={toggleWidgets} isOpen={areWidgetsVisible} />
-          <Widgets
-            currentFilter="all"
-            productRequests={productRequests}
-            filterByCategory={() => {}}
-            visible={areWidgetsVisible}
-          />
-        </Rainbox>
-      </MainGrid>
-    </PageContainer>
+    <>
+      <Rainbox>
+        <div>
+          <h1>Frontend Mentor</h1>
+          <h2>Feedback Board</h2>
+        </div>
+        <HamburgerIcon onClick={toggleWidgets} isOpen={areWidgetsVisible} />
+      </Rainbox>
+      <Widgets
+        currentFilter={categoryFilter}
+        filterByCategory={filterByCategory}
+        productRequests={productRequests}
+        visible={areWidgetsVisible}
+      />
+      <PageContainer>
+        <MainGrid></MainGrid>
+      </PageContainer>
+    </>
   );
 }
 

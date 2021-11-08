@@ -18,9 +18,6 @@ $rainbox-height: 9vh;
     font-weight: medium;
   }
   border-radius: initial;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   padding: 16px 24px;
   height: $rainbox-height;
@@ -28,6 +25,10 @@ $rainbox-height: 9vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 @media (min-width: breakpoints.$desktop) {
