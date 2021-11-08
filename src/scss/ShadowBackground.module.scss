@@ -1,4 +1,5 @@
 @use './Rainbox.module.scss';
+@use './shared/breakpoints.scss';
 
 $duration: 0.3s;
 $timing-function: ease-in-out;
@@ -22,12 +23,16 @@ $timing-function: ease-in-out;
 }
 
 .shadowBg {
-  position: absolute;
+  position: fixed;
   height: 100vh - Rainbox.$rainbox-height;
   background: #000;
   width: 100vw;
-  right: 100%;
   opacity: 0;
+  top: Rainbox.$rainbox-height;
+
+  @media (min-width: breakpoints.$tablet) {
+    display: none;
+  }
 }
 
 .fadeIn {
