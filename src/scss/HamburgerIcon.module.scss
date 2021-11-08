@@ -1,3 +1,5 @@
+@use './shared/breakpoints.scss';
+
 $hamburger-color: #fff;
 $hamburger-width: 20px;
 $hamburger-height: 3px;
@@ -13,7 +15,10 @@ $hamburger-transition: all 0.27s ease-in-out;
   height: 17px;
   cursor: pointer;
   transition: $hamburger-transition;
-  // border: 3px solid $hamburger-color;
+
+  @media (min-width: breakpoints.$tablet) {
+    display: none;
+  }
 }
 
 .menuBtn__burger {
@@ -59,3 +64,9 @@ $hamburger-transition: all 0.27s ease-in-out;
     transform: rotate(45deg);
   }
 }
+
+// @media (min-width: breakpoints.$tablet) {
+//   .menuBtn .menuBtn__burger {
+//     display: none;
+//   }
+// }
