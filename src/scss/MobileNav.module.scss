@@ -1,0 +1,17 @@
+@use './shared/breakpoints.scss';
+@use './Rainbox.module.scss';
+
+.mobileNav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  //   height: 100px;
+
+  & {
+    @media (min-width: breakpoints.$tablet) {
+      display: none;
+    }
+  }
+}
