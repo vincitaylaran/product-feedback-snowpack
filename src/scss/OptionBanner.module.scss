@@ -1,15 +1,33 @@
-@use '.shared/colors.scss';
+@use './shared/colors.scss';
+@use './shared/breakpoints.scss';
+@use './Rainbox.module.scss';
 
-.optionbanner {
+.optionBanner {
   display: flex;
   align-items: center;
   background-color: colors.$blue-900;
   color: colors.$white;
+
   & > * {
     padding-right: 1rem;
   }
+
+  @media (max-width: breakpoints.$tablet) {
+    & {
+      width: 100%;
+      border-radius: 0px;
+      position: -webkit-sticky;
+      position: sticky;
+      top: Rainbox.$rainbox-height;
+    }
+
+    .suggestionIcon,
+    .suggestionCount {
+      display: none;
+    }
+  }
 }
-.suggestion_count {
+.suggestionCount {
   font-size: 1.2rem;
   font-weight: 800;
 }
@@ -18,10 +36,12 @@
   margin-left: auto;
   background-color: colors.$purple;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.625rem;
   color: colors.$white;
   font-size: 1.1rem;
   font-weight: 600;
+  white-space: nowrap; // Prevents text from starting on new line.
+
   & > *:first-child {
     margin-right: 0.5rem;
     transform: scale(1.4);
@@ -29,6 +49,11 @@
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media (max-width: breakpoints.$tablet) {
+    font-size: 0.8125rem;
+    padding: 0.65625rem 1rem;
   }
 }
 
@@ -46,6 +71,10 @@
   position: relative;
   width: 150%;
   z-index: 1;
+
+  @media (max-width: breakpoints.$tablet) {
+    font-size: 0.8125rem;
+  }
 }
 .dropdown__downarrow {
   background-image: url('./assets/shared/icon-arrow-down.svg');
