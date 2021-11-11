@@ -1,6 +1,8 @@
 @use './shared/breakpoints.scss';
 
 .widgetsGrid {
+  display: none;
+
   @media (min-width: breakpoints.$tablet) {
     & {
       display: -ms-grid;
