@@ -24,11 +24,12 @@ $timing-function: ease-in-out;
 
 .shadowBg {
   position: fixed;
-  height: 100vh - Rainbox.$rainbox-height;
+  height: 100vh;
   background: #000;
   width: 100vw;
   opacity: 0;
   top: Rainbox.$rainbox-height;
+  z-index: -1;
 
   @media (min-width: breakpoints.$tablet) {
     display: none;
