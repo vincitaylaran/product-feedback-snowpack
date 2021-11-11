@@ -11,7 +11,7 @@ const isViewingFromMobileDevice = window.innerWidth <= 480;
 //   visible: boolean;
 // }
 
-interface DrawerProps {
+export interface DrawerProps {
   children: React.ReactNode;
   isOpen: boolean;
 }
