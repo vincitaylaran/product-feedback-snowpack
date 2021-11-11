@@ -41,7 +41,7 @@ function Roadmap({ productRequests }: RoadmapProps) {
   );
 }
 
-function formatKeyString(keyString: string) {
+function formatKeyString(keyString: ProductRequestStatus) {
   return keyString[0].toUpperCase() + keyString.substring(1);
 }
 
