@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../scss/HamburgerIcon.module.scss';
 
-interface HamburgerIconProps {
+export interface HamburgerIconProps {
   onClick: () => void;
   isOpen: boolean;
 }
