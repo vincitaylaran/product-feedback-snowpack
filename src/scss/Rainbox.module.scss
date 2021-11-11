@@ -1,7 +1,7 @@
 @use './shared/colors.scss';
 @use './shared/breakpoints.scss';
 
-$rainbox-height: 9vh;
+$rainbox-height: 70px;
 
 .rainbox {
   background-image: url('./assets/suggestions/desktop/background-header.png');
@@ -19,25 +19,24 @@ $rainbox-height: 9vh;
   }
   border-radius: initial;
   width: 100%;
-  padding: 16px 24px;
   height: $rainbox-height;
+  padding: 16px 24px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
-  left: 0;
 
   @media (min-width: breakpoints.$tablet) {
     position: static;
-    height: 100%;
     border-radius: 10px;
+    height: 100%;
   }
 
   @media (min-width: breakpoints.$desktop) {
     padding-top: 5rem;
-    position: initial;
   }
 }
