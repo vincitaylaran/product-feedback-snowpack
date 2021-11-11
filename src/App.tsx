@@ -74,27 +74,27 @@ function App({}: AppProps) {
 
   return (
     <>
-      {/* 
-      // Should not render conditionally via JS.
-      // Should only appear via CSS/SASS.
-      <WidgetsGrid>
-        ...children
-      </WidgetsGrid>
+      {/* Hides at tablet breakpoint. */}
+      <MobileNav>
+        <Rainbox>
+          <div>
+            <h1>Frontend Mentor</h1>
+            <h2>Feedback Board</h2>
+          </div>
+          <HamburgerIcon onClick={toggleWidgets} isOpen={isDrawerOpen} />
 
-      // Should not render conditionally via JS.
-      // Should only appear via CSS/SASS.
-      <Navigation>
-        ...children
-      </Navigation>
-      */}
-      <MobileNav
-        isDrawerOpen={isDrawerOpen}
-        filterByCategory={filterByCategory}
-        currentFilter={categoryFilter}
-        productRequests={productRequests}
-        onHamburgerClick={toggleWidgets}
-      />
+          <Drawer isOpen={isDrawerOpen}>
+            <FilterBox
+              filterByCategory={filterByCategory}
+              currentFilter={categoryFilter}
+            />
+            <Roadmap productRequests={productRequests} />
+          </Drawer>
+        </Rainbox>
+        {/* <ShadowBackground visible={isDrawerOpen} /> */}
+      </MobileNav>
 
+      {/* Hides at mobile breakpoint. */}
       <WidgetsGrid>
         <Rainbox>
           <div>
@@ -109,8 +109,6 @@ function App({}: AppProps) {
         <Roadmap productRequests={productRequests} />
       </WidgetsGrid>
 
-      {/* <ShadowBackground visible={isDrawerOpen} /> */}
-
       <MainGrid>
         <OptionBanner suggestionLength={productRequests.length} />
         {/* {
@@ -118,7 +116,6 @@ function App({}: AppProps) {
               ? (productRequests.map(request => <RequestCard />)) 
               : <NoRequests />
             } */}
-        <div style={{ height: '100vh' }}></div>
       </MainGrid>
     </>
   );
