@@ -34,6 +34,12 @@ $rainbox-height: 70px;
     position: static;
     border-radius: 10px;
     height: 100%;
+    align-items: end;
+    padding: 24px;
+
+    & h2 {
+      margin-top: 3px;
+    }
   }
 
   @media (min-width: breakpoints.$desktop) {
