@@ -80,5 +80,20 @@
       color: colors.$blue-900;
       text-transform: capitalize;
     }
+
+    // Replace with custom arrow.
+    &.arrowDown {
+      background-image: url('./assets/shared/icon-arrow-down.svg');
+      background-position: 100% 57%;
+      background-size: 8px;
+      background-repeat: no-repeat;
+    }
+
+    &.arrowUp {
+      background-image: url('./assets/shared/icon-arrow-up.svg');
+      background-position: 100% 57%;
+      background-size: 8px;
+      background-repeat: no-repeat;
+    }
   }
 }

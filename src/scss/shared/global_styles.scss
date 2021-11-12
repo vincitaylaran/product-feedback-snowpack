@@ -1,4 +1,5 @@
 @use './colors.scss';
+@use './breakpoints.scss';
 
 body {
   margin: 0;
@@ -7,6 +8,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @media (min-width: breakpoints.$tablet) {
+    & {
+      padding: 16px 40px;
+    }
+  }
 }
 
 code {
@@ -22,9 +29,15 @@ select {
   background-color: transparent;
   border: none;
   padding: 10px;
-  appearance: none;
+
+  /******************************** Start of arrow styles  ********************************/
+
+  // Remove default image of arrow.
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
+
+  /******************************** End of arrow styles  ********************************/
 }
 /* For IE <= 11 */
 select::-ms-expand {

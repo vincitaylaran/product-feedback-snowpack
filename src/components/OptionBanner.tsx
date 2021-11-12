@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
-import PillButton from './PillButton';
 
 import SuggestionIcon from '../../public/assets/suggestions/icon-suggestions.svg';
 import styles from '../scss/OptionBanner.module.scss';
@@ -36,7 +35,10 @@ type DropdownOptions =
   | 'most-comments'
   | 'least-comments';
 
+// TODO: make this more generic so that other components can have their own options.
+// TODO: should have hover state.
 function OptionsDropdown({}: OptionsDropdownProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const options: DropdownOptions[] = [
     'most-upvotes',
     'least-upvotes',
@@ -47,7 +49,13 @@ function OptionsDropdown({}: OptionsDropdownProps) {
   return (
     <div className={styles.dropdownContainer}>
       <label htmlFor="sort-options">Sort by : </label>
-      <select name="sort-options">
+      <select
+        name="sort-options"
+        className={`${styles.optionsDropdown} ${
+          isOpen ? styles.arrowUp : styles.arrowDown
+        }`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {options.map((option) => {
           let optionCapitalized = _.replace(option, '-', ' ');
 
