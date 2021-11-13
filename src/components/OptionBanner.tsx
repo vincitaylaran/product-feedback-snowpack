@@ -21,47 +21,65 @@ function OptionBanner({ suggestionLength }: OptionBannerProps) {
         {suggestionLength} Suggestion
         {suggestionLength == 1 ? '' : 's'}
       </h3>
-      <OptionsDropdown />
+      <OptionsDropdown
+        label="Sort by"
+        options={[
+          'Most Upvotes',
+          'Least Upvotes',
+          'Most Comments',
+          'Least Comments',
+        ]}
+      />
       <AddFeedbackButton />
     </Card>
   );
 }
 
-interface OptionsDropdownProps {}
-
-type DropdownOptions =
-  | 'most-upvotes'
-  | 'least-upvotes'
-  | 'most-comments'
-  | 'least-comments';
+interface OptionsDropdownProps {
+  label: string;
+  options: string[];
+}
 
 // TODO: make this more generic so that other components can have their own options.
 // TODO: should have hover state.
-function OptionsDropdown({}: OptionsDropdownProps) {
+function OptionsDropdown({ label, options }: OptionsDropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const options: DropdownOptions[] = [
-    'most-upvotes',
-    'least-upvotes',
-    'most-comments',
-    'least-comments',
-  ];
+  const [selectedOption, setSelectedOption] = useState<string>(options[0]);
 
   return (
-    <div className={styles.dropdownContainer}>
-      <label htmlFor="sort-options">Sort by : </label>
-      <select
-        name="sort-options"
-        className={`${styles.optionsDropdown} ${
-          isOpen ? styles.arrowUp : styles.arrowDown
-        }`}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {options.map((option) => {
-          let optionCapitalized = _.replace(option, '-', ' ');
+    <div
+      className={styles.dropdownContainer}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <label>
+        <span className={styles.label}>{label}</span>
+        <span className={styles.colon}>:</span>
+        <span className={styles.selectedOption}>{selectedOption}</span>
+        <img
+          className={styles.icon}
+          src={`${
+            isOpen
+              ? '../../assets/shared/icon-arrow-up.svg'
+              : '../../assets/shared/icon-arrow-down.svg'
+          } `}
+          alt="Dropdown icon"
+        />
+      </label>
 
-          return <option value={option}>{optionCapitalized}</option>;
-        })}
-      </select>
+      <div
+        className={`${styles.options} ${isOpen ? styles.open : styles.closed}`}
+      >
+        <Card>
+          {options.map((value) => (
+            <div
+              className={styles.option}
+              onClick={() => setSelectedOption(value)}
+            >
+              {value}
+            </div>
+          ))}
+        </Card>
+      </div>
     </div>
   );
 }

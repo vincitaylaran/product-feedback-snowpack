@@ -59,41 +59,58 @@
 
 .dropdownContainer {
   display: flex;
-  align-items: center;
+  color: black;
+  position: relative;
   font-size: 0.8125rem;
-  height: 100%;
 
-  & > *:first-child {
-    flex-shrink: 0;
+  &:hover {
+    label {
+      color: colors.$blue-100;
+    }
   }
 
-  select[name='sort-options'] {
+  &,
+  & > * {
+    cursor: pointer;
+  }
+
+  .options {
+    position: absolute;
+    border: 3px solid black;
+    top: 42px;
+    border-radius: 10px;
+    width: 255px;
+
+    &.open {
+      display: block;
+    }
+
+    &.closed {
+      display: none;
+    }
+
+    .option {
+      padding: 12px 0;
+    }
+  }
+
+  label {
+    color: #fff;
+    margin-right: 9px;
+    white-space: nowrap;
+  }
+
+  .colon {
+    margin: 0 5px;
+  }
+
+  .selectedOption {
     font-weight: 700;
-    color: colors.$white;
-    display: inline;
-    padding: 0;
-    padding-top: 3px;
-    padding-left: 5px;
-    text-transform: capitalize;
+    margin-right: 9px;
+  }
 
-    option {
-      color: colors.$blue-900;
-      text-transform: capitalize;
-    }
-
-    // Replace with custom arrow.
-    &.arrowDown {
-      background-image: url('./assets/shared/icon-arrow-down.svg');
-      background-position: 100% 57%;
-      background-size: 8px;
-      background-repeat: no-repeat;
-    }
-
-    &.arrowUp {
-      background-image: url('./assets/shared/icon-arrow-up.svg');
-      background-position: 100% 57%;
-      background-size: 8px;
-      background-repeat: no-repeat;
-    }
+  .icon {
+    position: absolute;
+    top: 45%;
   }
 }
