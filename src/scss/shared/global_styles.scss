@@ -8,12 +8,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (min-width: breakpoints.$tablet) {
-    & {
-      padding: 16px 40px;
-    }
-  }
 }
 
 code {
