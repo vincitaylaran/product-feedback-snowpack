@@ -69,16 +69,22 @@ function OptionsDropdown({ label, options }: OptionsDropdownProps) {
       <div
         className={`${styles.options} ${isOpen ? styles.open : styles.closed}`}
       >
-        <Card>
-          {options.map((value) => (
-            <div
-              className={styles.option}
-              onClick={() => setSelectedOption(value)}
-            >
-              {value}
-            </div>
-          ))}
-        </Card>
+        {options.map((value) => (
+          <div
+            className={styles.option}
+            onClick={() => setSelectedOption(value)}
+          >
+            <span>{value}</span>
+
+            {value === selectedOption && (
+              <img
+                className={styles.checkmark}
+                src="../../assets/shared/icon-check.svg"
+                alt="Checkmark"
+              />
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

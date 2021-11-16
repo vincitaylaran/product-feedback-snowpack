@@ -76,10 +76,10 @@
 
   .options {
     position: absolute;
-    border: 3px solid black;
     top: 42px;
     border-radius: 10px;
     width: 255px;
+    box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
 
     &.open {
       display: block;
@@ -90,7 +90,31 @@
     }
 
     .option {
-      padding: 12px 0;
+      color: colors.$blue-700;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(56, 63, 103, 0.15);
+      font-weight: 400;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:first-child {
+      }
+
+      &:last-child {
+        border-bottom: 0px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: colors.$blue-500;
+      }
+
+      .checkmark {
+        padding-top: 2px;
+      }
     }
   }
 
