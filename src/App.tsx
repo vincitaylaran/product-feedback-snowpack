@@ -73,7 +73,7 @@ function App({}: AppProps) {
   };
 
   return (
-    <>
+    <PageContainer>
       {/* Hides at tablet breakpoint. */}
       <MobileNav>
         <Rainbox>
@@ -111,13 +111,11 @@ function App({}: AppProps) {
 
       <MainGrid>
         <OptionBanner suggestionLength={productRequests.length} />
-        {/* {
-              productRequests.length > 0
-              ? (productRequests.map(request => <RequestCard />)) 
-              : <NoRequests />
-            } */}
+        {productRequests.map((request) => (
+          <RequestCard request={request} upvoteProductRequest={() => {}} />
+        ))}
       </MainGrid>
-    </>
+    </PageContainer>
   );
 }
 
