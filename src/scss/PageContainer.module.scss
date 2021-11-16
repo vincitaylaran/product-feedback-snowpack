@@ -1,7 +1,19 @@
 @use './shared/colors.scss';
+@use './shared/breakpoints.scss';
 
 .page_container {
-  padding: 3rem;
   background-color: colors.$blue-100;
   min-height: 100vh;
+
+  @media (min-width: breakpoints.$tablet) {
+    padding: 56px 40px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  @media (min-width: breakpoints.$desktop) {
+    flex-direction: row;
+  }
 }
