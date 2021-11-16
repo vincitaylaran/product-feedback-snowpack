@@ -4,10 +4,19 @@
 $rainbox-height: 70px;
 
 .rainbox {
-  background-image: url('./assets/suggestions/desktop/background-header.png');
+  @media (min-width: breakpoints.$tablet) {
+    background-image: url('./assets/suggestions/tablet/background-header.png');
+  }
+
+  @media (min-width: breakpoints.$desktop) {
+    background-image: url('./assets/suggestions/desktop/background-header.png');
+  }
+
+  background-image: url('./assets/suggestions/mobile/background-header.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
   color: colors.$white;
   & h1 {
     font-size: 0.9375rem;
