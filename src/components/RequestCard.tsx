@@ -3,13 +3,13 @@ import React from 'react';
 import type {
   ProductRequest,
   ProductRequestCategory,
-} from '../../interfaces/productRequest.interface';
-import Card from '../Card';
-import PillButton from '../PillButton';
-import ArrowUp from '../../../public/assets/shared/icon-arrow-up.svg';
-import CommentIcon from '../../../public/assets/shared/icon-comments.svg';
+} from '../interfaces/productRequest.interface';
+import Card from './Card';
+import PillButton from './PillButton';
+import ArrowUp from '../../public/assets/shared/icon-arrow-up.svg';
+import CommentIcon from '../../public/assets/shared/icon-comments.svg';
 
-import styles from './RequestCard.module.scss';
+import styles from '../scss/RequestCard.module.scss';
 
 interface RequestCardProps {
   request: ProductRequest;
