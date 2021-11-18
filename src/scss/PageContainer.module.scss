@@ -8,12 +8,15 @@
   @media (min-width: breakpoints.$tablet) {
     padding: 56px 40px;
 
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
   }
 
   @media (min-width: breakpoints.$desktop) {
-    flex-direction: row;
+    // flex-direction: row;
+    display: grid;
+    grid-template-columns: 0.25fr 1fr;
+    gap: 30px;
   }
 }
