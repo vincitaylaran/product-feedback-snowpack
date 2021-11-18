@@ -19,16 +19,18 @@ interface RequestCardProps {
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
   return (
     <Card className={styles.requestCard}>
-      <UpvoteButton
-        upvotes={request.upvotes.length}
-        upvoteProductRequest={() => upvoteProductRequest(request.id)}
-      />
       <RequestDetails
         title={request.title}
         description={request.description}
         category={request.category}
       />
-      <Comments commentCount={(request.comments || []).length} />
+      <div className={styles.requestCard__functions}>
+        <UpvoteButton
+          upvotes={request.upvotes.length}
+          upvoteProductRequest={() => upvoteProductRequest(request.id)}
+        />
+        <Comments commentCount={(request.comments || []).length} />
+      </div>
     </Card>
   );
 }
@@ -38,6 +40,7 @@ interface UpvoteButtonProps {
   upvoteProductRequest: () => void;
 }
 
+// TODO: make color of arrow modular.
 function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
   return (
     <button
@@ -45,8 +48,12 @@ function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
       onClick={upvoteProductRequest}
       data-testid="upvote-btn"
     >
-      <img src={ArrowUp} alt="Arrow pointing up" />
-      {upvotes}
+      <img
+        className={styles.upvotes__arrow}
+        src={ArrowUp}
+        alt="Arrow pointing up"
+      />
+      <span className={styles.upvotes__count}>{upvotes}</span>
     </button>
   );
 }
@@ -61,7 +68,9 @@ function Comments({ commentCount }: CommentsProps) {
       <img src={CommentIcon} alt="Icon of comment bubble" />{' '}
       <span
         data-testid="request-commentCount"
-        className={commentCount === 0 ? styles.zero : ''}
+        className={`${styles.comments__count} ${
+          commentCount === 0 && styles.zero
+        }`}
       >
         {commentCount}
       </span>
