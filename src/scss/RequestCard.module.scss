@@ -1,46 +1,64 @@
 @use './shared/colors.scss';
+@use './shared/breakpoints.scss';
 
 .requestCard {
-  display: flex;
-  align-items: flex-start;
-  padding: 2rem;
+  padding: 24px;
 
-  flex-direction: column;
+  display: -ms-grid;
+  display: grid;
+  gap: 16px;
+  grid-template-areas:
+    'details details details details'
+    'upvote . . comments';
 
-  &__functions {
-    // background-color: red;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
+  @media (min-width: breakpoints.$tablet) {
+    & {
+      grid-template-columns: 60px auto auto auto 40px;
+      grid-template-areas:
+        'upvote details details . comments'
+        '. details details . comments';
+    }
   }
 }
 
 .requestDetails {
   font-size: 0.8125rem;
+  grid-area: details;
 
   & > *:not(:last-child) {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.625rem;
+
+    @media (min-width: breakpoints.$tablet) {
+      margin-bottom: 0.75rem;
+    }
   }
   &__title {
     font-weight: 800;
     color: colors.$blue-900;
+
+    @media (min-width: breakpoints.$tablet) {
+      font-size: 1.125rem;
+    }
   }
   &__description {
     color: colors.$blue-700;
+
+    @media (min-width: breakpoints.$tablet) {
+      font-size: 1rem;
+    }
   }
 }
 
 .upvotes {
-  min-width: 3rem;
+  grid-area: upvote;
   display: flex;
   align-items: center;
   background-color: colors.$blue-100;
   border-radius: 0.5rem;
   padding: 6px 13px;
   font-weight: 700;
+  width: 69px;
+  height: 32px;
 
   &__arrow {
     width: 1rem;
@@ -55,23 +73,34 @@
   &:hover {
     cursor: pointer;
   }
+
+  @media (min-width: breakpoints.$tablet) {
+    flex-direction: column;
+    width: 40px;
+    height: 50px;
+
+    &__arrow {
+      padding-bottom: 0;
+      margin-right: 0;
+      margin-bottom: 8px;
+    }
+  }
 }
 
 .comments {
+  grid-area: comments;
   display: flex;
-
   font-weight: 700;
+  height: 100%;
+  align-items: center;
 
   & > *:first-child {
     margin-right: 10px;
-    height: 100%;
-    align-self: center;
   }
 
   &__count {
     font-weight: 700;
     color: colors.$blue-900;
-    // align-self: start;
     padding-bottom: 2px;
   }
 }

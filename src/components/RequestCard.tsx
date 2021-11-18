@@ -19,18 +19,16 @@ interface RequestCardProps {
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
   return (
     <Card className={styles.requestCard}>
+      <UpvoteButton
+        upvotes={request.upvotes.length}
+        upvoteProductRequest={() => upvoteProductRequest(request.id)}
+      />
       <RequestDetails
         title={request.title}
         description={request.description}
         category={request.category}
       />
-      <div className={styles.requestCard__functions}>
-        <UpvoteButton
-          upvotes={request.upvotes.length}
-          upvoteProductRequest={() => upvoteProductRequest(request.id)}
-        />
-        <Comments commentCount={(request.comments || []).length} />
-      </div>
+      <Comments commentCount={(request.comments || []).length} />
     </Card>
   );
 }
