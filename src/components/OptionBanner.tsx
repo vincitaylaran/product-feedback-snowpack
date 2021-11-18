@@ -95,7 +95,9 @@ interface AddFeedbackButtonProps {}
 function AddFeedbackButton({}: AddFeedbackButtonProps) {
   return (
     <button className={styles.addFeedbackButton}>
-      <span>+ Add Feedback</span>
+      <span>+ </span>
+      <span className={styles.addFeedbackButton__feedback}>Add </span>
+      <span>Feedback</span>
     </button>
   );
 }

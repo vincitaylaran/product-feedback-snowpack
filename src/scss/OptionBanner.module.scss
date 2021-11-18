@@ -55,6 +55,12 @@
     font-size: 0.8125rem;
     padding: 0.65625rem 1rem;
   }
+
+  @media (max-width: breakpoints.$mobile-sm) {
+    &__feedback {
+      display: none;
+    }
+  }
 }
 
 .dropdownContainer {
