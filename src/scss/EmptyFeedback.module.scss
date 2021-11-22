@@ -1,0 +1,42 @@
+@use './shared/colors.scss';
+@use './shared/breakpoints.scss';
+
+.noFeedback {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &__content {
+    width: 75%;
+  }
+
+  &__img {
+    margin-bottom: 39px;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: colors.$blue-900;
+    margin-bottom: 14px;
+  }
+
+  &__description {
+    font-size: 0.8125rem;
+    color: colors.$blue-700;
+    margin-bottom: 24px;
+
+    @media (min-width: breakpoints.$tablet) {
+      & > span:nth-child(3) {
+        display: block;
+      }
+    }
+  }
+
+  .addFeedbackButton {
+    margin: 0;
+  }
+}
