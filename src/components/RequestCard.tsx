@@ -1,4 +1,5 @@
 import React from 'react';
+import ArrowIcon from './ArrowIcon';
 
 import type {
   ProductRequest,
@@ -46,11 +47,12 @@ function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
       onClick={upvoteProductRequest}
       data-testid="upvote-btn"
     >
-      <img
+      <ArrowIcon color="#4661E6" direction="up" />
+      {/* <img
         className={styles.upvotes__arrow}
         src={ArrowUp}
         alt="Arrow pointing up"
-      />
+      /> */}
       <span className={styles.upvotes__count}>{upvotes}</span>
     </button>
   );

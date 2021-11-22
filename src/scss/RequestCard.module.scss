@@ -53,21 +53,16 @@
   grid-area: upvote;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   background-color: colors.$blue-100;
   border-radius: 0.5rem;
-  padding: 6px 13px;
   font-weight: 700;
   width: 69px;
   height: 32px;
 
-  &__arrow {
-    width: 1rem;
-    padding-bottom: 0.2rem;
-    margin-right: 10px;
-  }
-
   &__count {
     color: colors.$blue-900;
+    margin-left: 3px;
   }
 
   &:hover {
@@ -79,10 +74,8 @@
     width: 40px;
     height: 50px;
 
-    &__arrow {
-      padding-bottom: 0;
-      margin-right: 0;
-      margin-bottom: 8px;
+    &__count {
+      margin-left: 0;
     }
   }
 }

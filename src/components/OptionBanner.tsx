@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Card from './Card';
+import ArrowIcon from './ArrowIcon';
 
 import SuggestionIcon from '../../public/assets/suggestions/icon-suggestions.svg';
 import styles from '../scss/OptionBanner.module.scss';
@@ -40,8 +41,6 @@ interface OptionsDropdownProps {
   options: string[];
 }
 
-// TODO: make this more generic so that other components can have their own options.
-// TODO: should have hover state.
 function OptionsDropdown({ label, options }: OptionsDropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(options[0]);
@@ -55,24 +54,17 @@ function OptionsDropdown({ label, options }: OptionsDropdownProps) {
         <span className={styles.label}>{label}</span>
         <span className={styles.colon}>:</span>
         <span className={styles.selectedOption}>{selectedOption}</span>
-        <img
-          className={styles.icon}
-          src={`${
-            isOpen
-              ? '../../assets/shared/icon-arrow-up.svg'
-              : '../../assets/shared/icon-arrow-down.svg'
-          } `}
-          alt="Dropdown icon"
-        />
+        <ArrowIcon color="#fff" direction={isOpen ? 'up' : 'down'} />
       </label>
 
       <div
         className={`${styles.options} ${isOpen ? styles.open : styles.closed}`}
       >
-        {options.map((value) => (
+        {options.map((value, i) => (
           <div
             className={styles.option}
             onClick={() => setSelectedOption(value)}
+            key={i + value}
           >
             <span>{value}</span>
 
