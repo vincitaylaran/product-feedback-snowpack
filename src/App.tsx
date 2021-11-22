@@ -112,7 +112,11 @@ function App({}: AppProps) {
       <MainGrid>
         <OptionBanner suggestionLength={productRequests.length} />
         {productRequests.map((request) => (
-          <RequestCard request={request} upvoteProductRequest={() => {}} />
+          <RequestCard
+            request={request}
+            upvoteProductRequest={() => {}}
+            key={request.id}
+          />
         ))}
       </MainGrid>
     </PageContainer>
