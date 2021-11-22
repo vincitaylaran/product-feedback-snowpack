@@ -84,7 +84,7 @@ function OptionsDropdown({ label, options }: OptionsDropdownProps) {
 
 interface AddFeedbackButtonProps {}
 
-function AddFeedbackButton({}: AddFeedbackButtonProps) {
+export function AddFeedbackButton({}: AddFeedbackButtonProps) {
   return (
     <button className={styles.addFeedbackButton}>
       <span>+ </span>

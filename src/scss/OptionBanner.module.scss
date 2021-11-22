@@ -13,6 +13,10 @@
     padding-right: 1rem;
   }
 
+  & > .addFeedbackButton {
+    margin-left: auto;
+  }
+
   @media (max-width: breakpoints.$tablet) {
     & {
       width: 100%;
@@ -39,7 +43,6 @@
 }
 
 .addFeedbackButton {
-  margin-left: auto;
   background-color: colors.$purple;
   padding: 1rem;
   border-radius: 0.625rem;
