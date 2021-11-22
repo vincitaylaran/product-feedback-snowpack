@@ -26,6 +26,7 @@ import HamburgerIcon from './components/HamburgerIcon';
 import Drawer from './components/Drawer';
 import WidgetsGrid from './components/WidgetsGrid';
 import MobileNav from './components/MobileNav';
+import EmptyFeedback from './components/EmptyFeedback';
 
 interface AppProps {}
 
@@ -111,13 +112,20 @@ function App({}: AppProps) {
 
       <MainGrid>
         <OptionBanner suggestionLength={productRequests.length} />
-        {productRequests.map((request) => (
-          <RequestCard
-            request={request}
-            upvoteProductRequest={() => {}}
-            key={request.id}
-          />
-        ))}
+
+        {productRequests.length > 0 ? (
+          <>
+            {productRequests.map((request) => (
+              <RequestCard
+                request={request}
+                upvoteProductRequest={() => {}}
+                key={request.id}
+              />
+            ))}
+          </>
+        ) : (
+          <EmptyFeedback />
+        )}
       </MainGrid>
     </PageContainer>
   );
