@@ -15,8 +15,6 @@ import { PRODUCT_REQUESTS } from './graphql/queries';
 import Card from './components/Card';
 import ShadowBackground from './components/ShadowBackground';
 
-import { isViewingFromMobileDevice } from './helper-functions';
-
 import PageContainer from './components/PageContainer';
 import Stack from './components/Stack';
 import MainGrid from './components/MainGrid';
