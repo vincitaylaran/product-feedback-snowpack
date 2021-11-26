@@ -1,14 +1,11 @@
 import React from 'react';
 import ArrowIcon from './ArrowIcon';
 
-import type {
-  ProductRequest,
-  ProductRequestCategory,
-} from '../interfaces/productRequest.interface';
+import type { ProductRequest } from '../interfaces/productRequest.interface';
 import Card from './Card';
 import PillButton from './PillButton';
-import ArrowUp from '../../public/assets/shared/icon-arrow-up.svg';
 import CommentIcon from '../../public/assets/shared/icon-comments.svg';
+import { Link } from 'react-router-dom';
 
 import styles from '../scss/RequestCard.module.scss';
 
@@ -29,7 +26,10 @@ function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
         description={request.description}
         category={request.category}
       />
-      <Comments commentCount={(request.comments || []).length} />
+      <Comments
+        commentCount={(request.comments || []).length}
+        requestId={request.id}
+      />
     </Card>
   );
 }
@@ -39,7 +39,6 @@ interface UpvoteButtonProps {
   upvoteProductRequest: () => void;
 }
 
-// TODO: make color of arrow modular.
 function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
   return (
     <button
@@ -60,20 +59,24 @@ function UpvoteButton({ upvotes, upvoteProductRequest }: UpvoteButtonProps) {
 
 interface CommentsProps {
   commentCount: number;
+  requestId: number;
 }
 
-function Comments({ commentCount }: CommentsProps) {
+// FIXME: styles break after adding Link component from react router.
+function Comments({ commentCount, requestId }: CommentsProps) {
   return (
     <div className={styles.comments}>
-      <img src={CommentIcon} alt="Icon of comment bubble" />{' '}
-      <span
-        data-testid="request-commentCount"
-        className={`${styles.comments__count} ${
-          commentCount === 0 && styles.zero
-        }`}
-      >
-        {commentCount}
-      </span>
+      <Link to={`/comments/${requestId}`}>
+        <img src={CommentIcon} alt="Icon of comment bubble" />{' '}
+        <span
+          data-testid="request-commentCount"
+          className={`${styles.comments__count} ${
+            commentCount === 0 && styles.zero
+          }`}
+        >
+          {commentCount}
+        </span>
+      </Link>
     </div>
   );
 }
