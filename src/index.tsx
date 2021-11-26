@@ -4,6 +4,9 @@ import App from './App';
 import './scss/shared/global_styles.scss';
 import './index.scss';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Comments from './routes/comments';
+import Comment from './components/Comment';
 
 const uri = 'https://fem-product-feedback.herokuapp.com/graphql';
 
@@ -15,7 +18,14 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/comments" element={<Comments />}>
+            <Route path=":requestId" element={<Comment />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
