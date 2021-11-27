@@ -3,7 +3,7 @@ import Rainbox from './components/Rainbox';
 import FilterBox from './components/FilterBox';
 import Roadmap from './components/Roadmap';
 
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
 import type {
   ProductRequest,
@@ -12,11 +12,8 @@ import type {
 import type { User } from './interfaces/user.interface';
 
 import { PRODUCT_REQUESTS } from './graphql/queries';
-import Card from './components/Card';
-import ShadowBackground from './components/ShadowBackground';
 
 import PageContainer from './components/PageContainer';
-import Stack from './components/Stack';
 import MainGrid from './components/MainGrid';
 import OptionBanner from './components/OptionBanner';
 import RequestCard from './components/RequestCard';
@@ -25,10 +22,9 @@ import Drawer from './components/Drawer';
 import WidgetsGrid from './components/WidgetsGrid';
 import MobileNav from './components/MobileNav';
 import EmptyFeedback from './components/EmptyFeedback';
+import Loading from './components/Loading';
 
-interface AppProps {}
-
-function App({}: AppProps) {
+function App() {
   const { data, loading, error } = useQuery(PRODUCT_REQUESTS);
   const [productRequests, setProductRequests] = useState<ProductRequest[]>([]);
   const [currentUser, setCurrentUser] = useState<User>();
@@ -58,7 +54,7 @@ function App({}: AppProps) {
     }
   }, [categoryFilter]);
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <Loading />;
   if (error) console.error('error :(');
 
   const filterByCategory = (
