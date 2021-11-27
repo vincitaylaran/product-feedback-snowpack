@@ -8,10 +8,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Comments from './routes/comments';
 import Comment from './components/Comment';
 
-const uri = 'https://fem-product-feedback.herokuapp.com/graphql';
-
-const client = new ApolloClient({
-  uri,
+export const client = new ApolloClient({
+  uri: 'https://fem-product-feedback.herokuapp.com/graphql',
   cache: new InMemoryCache(),
 });
 
