@@ -1,0 +1,33 @@
+@use './shared/breakpoints.scss';
+@use './shared/colors.scss';
+
+.button {
+  background-color: colors.$purple;
+  padding: 1rem;
+  border-radius: 0.625rem;
+  color: colors.$white;
+  font-weight: 600;
+  white-space: nowrap; // Prevents text from starting on new line.
+  text-transform: capitalize;
+
+  & > *:first-child {
+    margin-right: 3px;
+    transform: scale(1.4);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (max-width: breakpoints.$tablet) {
+    font-size: 0.8125rem;
+    padding: 0.65625rem 1rem;
+    height: 40px;
+  }
+
+  @media (max-width: breakpoints.$mobile-sm) {
+    &__feedback {
+      display: none;
+    }
+  }
+}
