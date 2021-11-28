@@ -1,0 +1,11 @@
+@use './shared/colors.scss';
+
+.goBackBtn {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: colors.$blue-700;
+
+  img {
+    margin-right: 15px;
+  }
+}
