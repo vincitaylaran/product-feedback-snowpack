@@ -82,9 +82,8 @@ function OptionsDropdown({ label, options }: OptionsDropdownProps) {
   );
 }
 
-interface AddFeedbackButtonProps {}
-
-export function AddFeedbackButton({}: AddFeedbackButtonProps) {
+// TODO: remove this and replace all of its implementations with the <Button /> component.
+export function AddFeedbackButton() {
   return (
     <button className={styles.addFeedbackButton}>
       <span>+ </span>
