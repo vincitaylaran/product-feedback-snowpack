@@ -13,7 +13,7 @@ import type { User } from './interfaces/user.interface';
 
 import { PRODUCT_REQUESTS } from './graphql/queries';
 
-import PageContainer from './components/PageContainer';
+import HomeContainer from './components/HomeContainer';
 import MainGrid from './components/MainGrid';
 import OptionBanner from './components/OptionBanner';
 import RequestCard from './components/RequestCard';
@@ -68,7 +68,7 @@ function App() {
   };
 
   return (
-    <PageContainer>
+    <HomeContainer>
       {/* Hides at tablet breakpoint. */}
       <MobileNav>
         <Rainbox>
@@ -121,7 +121,7 @@ function App() {
           <EmptyFeedback />
         )}
       </MainGrid>
-    </PageContainer>
+    </HomeContainer>
   );
 }
 
