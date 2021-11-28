@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import Loading from './Loading';
+import MainGrid from './MainGrid';
+import Card from './Card';
+import RequestCard from './RequestCard';
 
 const GET_COMMENT = gql`
   query Requests($requestId: Int!) {
@@ -43,24 +46,15 @@ function Comment() {
   const { data, loading, error } = useQuery(GET_COMMENT, {
     variables: { requestId: Number(params.requestId) },
   });
-  const { title, description, category, upvotes, comments } = data.Request;
 
   if (error) console.error(error);
   if (loading) return <Loading />;
   if (data) console.log(data);
 
   return (
-    <div>
-      <div>{title}</div>
-      <div>{description}</div>
-      <div>{category}</div>
-      <div>{upvotes.length}</div>
-      <div>
-        {comments.map((c: any) => (
-          <div>{c.content}</div>
-        ))}
-      </div>
-    </div>
+    <MainGrid>
+      <RequestCard request={data.Request} upvoteProductRequest={() => {}} />
+    </MainGrid>
   );
 }
 
