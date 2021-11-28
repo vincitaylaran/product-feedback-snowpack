@@ -1,0 +1,23 @@
+@use './shared/breakpoints.scss';
+@use './shared/colors.scss';
+
+.layout {
+  padding: 24px 24px 88px;
+  min-height: 100vh;
+  background-color: colors.$blue-100;
+
+  @media (min-width: breakpoints.$tablet) {
+    padding: 56px 40px 120px;
+  }
+
+  @media (min-width: breakpoints.$desktop) {
+    padding: 94px 165px 129px;
+  }
+}
+
+.pageNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
