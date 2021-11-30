@@ -1,7 +1,8 @@
 @use './shared/colors.scss';
 @use './shared/breakpoints.scss';
+@use './RequestCard.module.scss';
 
-.page_container {
+.home_container {
   background-color: colors.$blue-100;
   min-height: 100vh;
 
@@ -13,6 +14,7 @@
     // flex-direction: column;
   }
 
+  // FIXME: fix layout when viewing device from desktop (breakpoint: 1279px or more).
   @media (min-width: breakpoints.$desktop) {
     // flex-direction: row;
     display: grid;
