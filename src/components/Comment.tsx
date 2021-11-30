@@ -5,6 +5,7 @@ import Loading from './Loading';
 import MainGrid from './MainGrid';
 import Card from './Card';
 import RequestCard from './RequestCard';
+import CommentsCard from './CommentsCard';
 
 const GET_COMMENT = gql`
   query Requests($requestId: Int!) {
@@ -49,11 +50,11 @@ function Comment() {
 
   if (error) console.error(error);
   if (loading) return <Loading />;
-  if (data) console.log(data);
 
   return (
     <MainGrid>
       <RequestCard request={data.Request} upvoteProductRequest={() => {}} />
+      <CommentsCard comments={data.Request.comments} />
     </MainGrid>
   );
 }
