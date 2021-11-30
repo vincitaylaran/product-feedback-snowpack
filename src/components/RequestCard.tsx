@@ -66,13 +66,11 @@ interface CommentsProps {
 function Comments({ commentCount, requestId }: CommentsProps) {
   return (
     <div className={styles.comments}>
-      <Link to={`/comments/${requestId}`}>
+      <Link className={styles.comments__link} to={`/comments/${requestId}`}>
         <img src={CommentIcon} alt="Icon of comment bubble" />{' '}
         <span
           data-testid="request-commentCount"
-          className={`${styles.comments__count} ${
-            commentCount === 0 && styles.zero
-          }`}
+          className={`${styles.count} ${commentCount === 0 && styles.zero}`}
         >
           {commentCount}
         </span>
