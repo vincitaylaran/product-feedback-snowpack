@@ -1,0 +1,39 @@
+@use './shared/colors.scss';
+
+.commentsCard {
+  width: 100%;
+
+  &__count {
+    color: colors.$blue-900;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height */
+
+    letter-spacing: -0.25px;
+  }
+
+  &__comments {
+    .comment {
+      .main {
+        .heading {
+        }
+
+        .profilePic {
+        }
+
+        .userInfo {
+        }
+
+        .replyBtn {
+        }
+      }
+
+      .replies {
+        .reply {
+        }
+      }
+    }
+  }
+}
