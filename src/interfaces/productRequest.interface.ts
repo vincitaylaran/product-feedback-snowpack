@@ -33,6 +33,7 @@ export interface Comment {
 }
 
 export interface Reply {
+  id: number;
   content: string;
   replyingTo: string;
   user: User;
