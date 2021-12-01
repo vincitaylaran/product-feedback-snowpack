@@ -62,7 +62,6 @@ interface CommentsProps {
   requestId: number;
 }
 
-// FIXME: styles break after adding Link component from react router.
 function Comments({ commentCount, requestId }: CommentsProps) {
   return (
     <div className={styles.comments}>
