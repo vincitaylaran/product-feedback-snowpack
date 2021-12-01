@@ -1,5 +1,7 @@
 @use './shared/colors.scss';
 
+$spacing: 24px;
+
 .commentsCard {
   width: 100%;
 
@@ -16,17 +18,49 @@
 
   &__comments {
     .comment {
+      padding-top: $spacing;
+
+      // Give all comments a solid bottom border except for the last comment.
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(140, 146, 179, 0.25);
+      }
+
       .main {
         .heading {
+          // background: red;
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+
+          .profilePic {
+            border-radius: 50%;
+            width: 40px;
+          }
+
+          .userInfo {
+            font-size: 13px;
+            margin-left: 16px;
+
+            .name {
+              font-weight: bold;
+              color: colors.$blue-900;
+            }
+            .username {
+              color: colors.$blue-700;
+            }
+          }
+
+          .replyBtn {
+            margin-left: auto;
+            background: none;
+            font-weight: bold;
+            color: colors.$blue-500;
+          }
         }
 
-        .profilePic {
-        }
-
-        .userInfo {
-        }
-
-        .replyBtn {
+        .content {
+          // background: blue;
+          margin-bottom: $spacing;
         }
       }
 
