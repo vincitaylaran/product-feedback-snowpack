@@ -3,15 +3,11 @@ import Rainbox from './components/Rainbox';
 import FilterBox from './components/FilterBox';
 import Roadmap from './components/Roadmap';
 
-import { useQuery } from '@apollo/client';
-
 import type {
   ProductRequest,
   ProductRequestCategoryFilters,
 } from './interfaces/productRequest.interface';
 import type { User } from './interfaces/user.interface';
-
-import { PRODUCT_REQUESTS } from './graphql/queries';
 
 import HomeContainer from './components/HomeContainer';
 import MainGrid from './components/MainGrid';
@@ -24,38 +20,13 @@ import MobileNav from './components/MobileNav';
 import EmptyFeedback from './components/EmptyFeedback';
 import Loading from './components/Loading';
 
+import { useProductFeedback } from './hooks/useProductFeedback';
+
 function App() {
-  const { data, loading, error } = useQuery(PRODUCT_REQUESTS);
-  const [productRequests, setProductRequests] = useState<ProductRequest[]>([]);
-  const [currentUser, setCurrentUser] = useState<User>();
+  const { data, currentUser } = useProductFeedback();
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (data) {
-      setProductRequests(data.AllRequests);
-      setCurrentUser(data.User);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (data) {
-      if (categoryFilter === 'all') {
-        setProductRequests(data.AllRequests);
-      } else {
-        setProductRequests(
-          data.AllRequests.filter(
-            (request: ProductRequest) =>
-              request.category.toLowerCase() === categoryFilter,
-          ),
-        );
-      }
-    }
-  }, [categoryFilter]);
-
-  if (loading) return <Loading />;
-  if (error) console.error('error :(');
 
   const filterByCategory = (
     categoryFilter: ProductRequestCategoryFilters,
@@ -83,7 +54,7 @@ function App() {
               filterByCategory={filterByCategory}
               currentFilter={categoryFilter}
             />
-            <Roadmap productRequests={productRequests} />
+            <Roadmap productRequests={data} />
           </Drawer>
         </Rainbox>
         {/* <ShadowBackground visible={isDrawerOpen} /> */}
@@ -101,15 +72,15 @@ function App() {
           currentFilter={categoryFilter}
           filterByCategory={filterByCategory}
         />
-        <Roadmap productRequests={productRequests} />
+        <Roadmap productRequests={data} />
       </WidgetsGrid>
 
       <MainGrid>
-        <OptionBanner suggestionLength={productRequests.length} />
+        <OptionBanner suggestionLength={data.length} />
 
-        {productRequests.length > 0 ? (
+        {data.length > 0 ? (
           <>
-            {productRequests.map((request) => (
+            {data.map((request) => (
               <RequestCard
                 request={request}
                 upvoteProductRequest={() => {}}

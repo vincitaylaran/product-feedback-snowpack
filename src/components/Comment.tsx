@@ -1,60 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery, gql } from '@apollo/client';
 import Loading from './Loading';
 import MainGrid from './MainGrid';
-import Card from './Card';
 import RequestCard from './RequestCard';
 import CommentsCard from './CommentsCard';
-
-const GET_COMMENT = gql`
-  query Requests($requestId: Int!) {
-    Request(id: $requestId) {
-      id
-      title
-      description
-      category
-      upvotes {
-        id
-      }
-      comments {
-        id
-        content
-        user {
-          id
-          name
-          username
-          image
-        }
-        replies {
-          id
-          content
-          user {
-            id
-            name
-            username
-            image
-          }
-          userId
-        }
-      }
-    }
-  }
-`;
+import { useProductFeedback } from '../hooks/useProductFeedback';
+import type { ProductRequest } from 'src/interfaces/productRequest.interface';
 
 function Comment() {
   let params = useParams();
-  const { data, loading, error } = useQuery(GET_COMMENT, {
-    variables: { requestId: Number(params.requestId) },
-  });
+  const { data, findProductRequest } = useProductFeedback();
+  const [request, setRequest] = useState<ProductRequest>();
 
-  if (error) console.error(error);
-  if (loading) return <Loading />;
+  useEffect(() => {
+    let result = findProductRequest(Number(params.requestId));
+    setRequest(result);
+  }, [data]);
 
   return (
     <MainGrid>
-      <RequestCard request={data.Request} upvoteProductRequest={() => {}} />
-      <CommentsCard comments={data.Request.comments} />
+      <RequestCard request={request} upvoteProductRequest={() => {}} />
+      <CommentsCard comments={request && request.comments} />
     </MainGrid>
   );
 }

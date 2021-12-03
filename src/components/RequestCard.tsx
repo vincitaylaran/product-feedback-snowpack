@@ -10,26 +10,32 @@ import { Link } from 'react-router-dom';
 import styles from '../scss/RequestCard.module.scss';
 
 interface RequestCardProps {
-  request: ProductRequest;
+  request: ProductRequest | undefined;
   upvoteProductRequest: (requestId: number) => void;
 }
 
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
   return (
     <Card className={styles.requestCard}>
-      <UpvoteButton
-        upvotes={request.upvotes.length}
-        upvoteProductRequest={() => upvoteProductRequest(request.id)}
-      />
-      <RequestDetails
-        title={request.title}
-        description={request.description}
-        category={request.category}
-      />
-      <Comments
-        commentCount={(request.comments || []).length}
-        requestId={request.id}
-      />
+      {request ? (
+        <>
+          <UpvoteButton
+            upvotes={request.upvotes}
+            upvoteProductRequest={() => upvoteProductRequest(request.id)}
+          />
+          <RequestDetails
+            title={request.title}
+            description={request.description}
+            category={request.category}
+          />
+          <Comments
+            commentCount={(request.comments || []).length}
+            requestId={request.id}
+          />
+        </>
+      ) : (
+        <h2>Request does not exist</h2>
+      )}
     </Card>
   );
 }

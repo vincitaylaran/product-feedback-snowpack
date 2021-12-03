@@ -4,5 +4,4 @@ export interface User {
   image: string;
   name: string;
   username: string;
-  upvotes: ProductRequest[];
 }

@@ -7,34 +7,38 @@ import type {
   ProductRequestCategoryFilters,
 } from '../interfaces/productRequest.interface';
 import type { User } from '../interfaces/user.interface';
+import data from '../data.json';
 
 export function useProductFeedback() {
-  const [feedback, setFeedback] = useState<ProductFeedback>({
-    currentUser: { image: '', name: '', username: '' },
-    productRequests: [],
-  });
-
+  const [requests, setRequests] = useState<ProductRequest[]>([]);
   const [categoryFilter, setCategoryFilter] =
     useState<ProductRequestCategoryFilters>('all');
+  const [currentUser, setCurrentUser] = useState<User>();
+
+  useEffect(() => {
+    console.log(data);
+    setRequests(data.productRequests);
+    setCurrentUser(data.currentUser);
+  }, []);
 
   const createProductRequest = (productRequest: ProductRequest): void => {
-    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    const requestsCopy: ProductRequest[] = [...requests.productRequests];
     requestsCopy.push(productRequest);
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...requests, productRequests: requestsCopy });
   };
 
   const findProductRequest = (
     requestId: number,
   ): ProductRequest | undefined => {
-    return feedback.productRequests.find((request) => request.id === requestId);
+    return requests.find((request) => request.id === requestId);
   };
 
   const deleteProductRequest = (requestId: number): void => {
-    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    const requestsCopy: ProductRequest[] = [...requests.productRequests];
     const filtered: ProductRequest[] = requestsCopy.filter(
       (request) => request.id !== requestId,
     );
-    setFeedback({ ...feedback, productRequests: filtered });
+    setFeedback({ ...requests, productRequests: filtered });
   };
 
   /**
@@ -43,26 +47,23 @@ export function useProductFeedback() {
    * @param requestId The ID of the product request.
    */
   const upvoteProductRequest = (requestId: number): void => {
-    let feedbackCopy: ProductFeedback = { ...feedback };
+    let feedbackCopy: ProductFeedback = { ...requests };
     let { currentUser, productRequests } = feedbackCopy;
     let userPreviouslyUpvoted: boolean;
 
-    if (currentUser.upvotedRequests) {
+    if (currentUser.upvotes) {
       // Check if ID exists.
       userPreviouslyUpvoted = didUserPreviouslyUpvote(requestId, currentUser);
 
       if (userPreviouslyUpvoted) {
-        currentUser.upvotedRequests = removeUpvoteRequestId(
-          requestId,
-          currentUser,
-        );
+        currentUser.upvotes = removeUpvoteRequestId(requestId, currentUser);
         productRequests = changeUpvoteCount(requestId, productRequests, false);
       } else {
-        currentUser.upvotedRequests.push(requestId);
+        currentUser.upvotes.push(requestId);
         productRequests = changeUpvoteCount(requestId, productRequests, true);
       }
     } else {
-      currentUser.upvotedRequests = [requestId];
+      currentUser.upvotes = [requestId];
       productRequests = changeUpvoteCount(requestId, productRequests, true);
     }
 
@@ -97,15 +98,15 @@ export function useProductFeedback() {
     id: number,
     user: User,
   ): number[] | undefined => {
-    if (user.upvotedRequests) {
-      return user.upvotedRequests.filter((requestId) => requestId !== id);
+    if (user.upvotes) {
+      return user.upvotes.filter((requestId) => requestId !== id);
     }
     return;
   };
 
   const didUserPreviouslyUpvote = (id: number, user: User): boolean => {
-    if (user.upvotedRequests) {
-      return user.upvotedRequests.some((requestId) => requestId === id);
+    if (user.upvotes) {
+      return user.upvotes.some((requestId) => requestId === id);
     }
     return false;
   };
@@ -124,7 +125,7 @@ export function useProductFeedback() {
     requestId: number,
     comment: { content: string; user: User },
   ): void => {
-    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    let requestsCopy: ProductRequest[] = [...requests.productRequests];
     let commentId: number;
 
     requestsCopy.forEach((request) => {
@@ -148,7 +149,7 @@ export function useProductFeedback() {
       }
     });
 
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...requests, productRequests: requestsCopy });
   };
 
   /**
@@ -164,7 +165,7 @@ export function useProductFeedback() {
     commentId: number,
     reply: Reply,
   ) => {
-    const requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    const requestsCopy: ProductRequest[] = [...requests.productRequests];
 
     requestsCopy.forEach((request) => {
       if (request.id === requestId) {
@@ -182,7 +183,7 @@ export function useProductFeedback() {
       }
     });
 
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...requests, productRequests: requestsCopy });
   };
 
   /**
@@ -190,7 +191,7 @@ export function useProductFeedback() {
    * @param sortByMost Pass in `true` to sort product requests by most upvotes.
    */
   const sortProductRequestsByUpvotes = (sortByMost: boolean): void => {
-    let requestsCopy = [...feedback.productRequests];
+    let requestsCopy = [...requests.productRequests];
 
     requestsCopy.sort((a, b) => {
       if (sortByMost) {
@@ -199,7 +200,7 @@ export function useProductFeedback() {
       return a.upvotes - b.upvotes;
     });
 
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...requests, productRequests: requestsCopy });
   };
 
   /**
@@ -210,7 +211,7 @@ export function useProductFeedback() {
    * This function assumes that if `comments` is falsy, give it a length of 0.
    */
   const sortProductRequestsByCommentsCount = (sortByMost: boolean): void => {
-    let requestsCopy: ProductRequest[] = [...feedback.productRequests];
+    let requestsCopy: ProductRequest[] = [...requests.productRequests];
 
     requestsCopy.sort((a, b) => {
       let aCommentsCount: number = 0;
@@ -226,7 +227,7 @@ export function useProductFeedback() {
       return aCommentsCount - bCommentsCount;
     });
 
-    setFeedback({ ...feedback, productRequests: requestsCopy });
+    setFeedback({ ...requests, productRequests: requestsCopy });
   };
 
   /**
@@ -249,7 +250,7 @@ export function useProductFeedback() {
   const filterByCategory = (category: ProductRequestCategoryFilters): void => {
     if (category === 'all')
       setFeedback({
-        ...feedback,
+        ...requests,
         productRequests: data.productRequests,
       });
     else {
@@ -257,13 +258,14 @@ export function useProductFeedback() {
         (request) => request.category === category,
       );
 
-      setFeedback({ ...feedback, productRequests: filtered });
+      setFeedback({ ...requests, productRequests: filtered });
     }
     setCategoryFilter(category);
   };
 
   return {
-    feedback,
+    data: requests,
+    currentUser,
     categoryFilter,
     upvoteProductRequest,
     addComment,

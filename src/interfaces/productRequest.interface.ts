@@ -5,7 +5,7 @@ export interface ProductRequest {
   title: string;
   category: string;
   status: string;
-  upvotes: User[];
+  upvotes: number;
   description: string;
   comments?: Comment[];
 }
@@ -26,15 +26,11 @@ export enum ProductRequestStatus {
 }
 
 export interface Comment {
-  id: number;
   content: string;
   user: User;
   replies?: Reply[];
 }
 
-export interface Reply {
-  id: number;
-  content: string;
+export interface Reply extends Comment {
   replyingTo: string;
-  user: User;
 }
