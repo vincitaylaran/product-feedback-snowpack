@@ -89,6 +89,7 @@ $spacing: 24px;
           border-bottom: none;
           position: relative;
 
+          // Give each reply a border to its left.
           &::after {
             content: '';
             position: absolute;
@@ -99,8 +100,9 @@ $spacing: 24px;
             opacity: 0.25;
           }
 
+          // Overrides border styles declared above for the last reply.
           &:last-child::after {
-            height: 10%;
+            height: 22px;
           }
 
           .content {
