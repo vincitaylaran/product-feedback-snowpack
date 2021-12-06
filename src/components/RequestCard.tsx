@@ -15,6 +15,22 @@ interface RequestCardProps {
 }
 
 function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
+  const getCommentsCount = (): number => {
+    let count = 0;
+
+    if (request && request.comments) {
+      count += request.comments.length;
+
+      request.comments.forEach((comment) => {
+        if (comment.replies) {
+          count += comment.replies.length;
+        }
+      });
+    }
+
+    return count;
+  };
+
   return (
     <Card className={styles.requestCard}>
       {request ? (
@@ -28,10 +44,7 @@ function RequestCard({ request, upvoteProductRequest }: RequestCardProps) {
             description={request.description}
             category={request.category}
           />
-          <Comments
-            commentCount={(request.comments || []).length}
-            requestId={request.id}
-          />
+          <Comments commentCount={getCommentsCount()} requestId={request.id} />
         </>
       ) : (
         <h2>Request does not exist</h2>
