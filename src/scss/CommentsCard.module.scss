@@ -1,4 +1,5 @@
 @use './shared/colors.scss';
+@use './shared/breakpoints.scss';
 
 $spacing: 24px;
 
@@ -65,8 +66,52 @@ $spacing: 24px;
       }
 
       .replies {
-        background: red;
+        // position: relative;
+        // border-left: 1px solid colors.$blue-700;
+
+        @media (max-width: breakpoints.$tablet) {
+          // &::after {
+          //   content: '';
+          //   position: absolute;
+          //   top: 0px;
+          //   left: 0px;
+          //   height: 80%;
+          //   // height: 62.5%;
+          //   border-left: 1px solid colors.$blue-700;
+          //   opacity: 0.25;
+          // }
+        }
+
+        // Overrides styles if used together with styles for '.comment'.
         .reply {
+          padding-left: $spacing;
+          padding-top: 0;
+          border-bottom: none;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            border-left: 1px solid colors.$blue-700;
+            opacity: 0.25;
+          }
+
+          &:last-child::after {
+            height: 10%;
+          }
+
+          .content {
+            margin-bottom: 0;
+            padding-bottom: $spacing;
+          }
+
+          .replyingTo {
+            font-weight: 700;
+            color: colors.$purple;
+          }
         }
       }
     }

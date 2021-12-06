@@ -62,9 +62,35 @@ function CommentsCard({ comments }: CommentsCardProps) {
                 {comment.replies && (
                   <div className={styles.replies}>
                     {comment.replies.map((reply) => (
-                      <p className={styles.reply} key={uuidv4()}>
-                        {reply.content}
-                      </p>
+                      <div
+                        className={`${styles.comment} ${styles.reply}`}
+                        key={uuidv4()}
+                      >
+                        <div className={styles.main}>
+                          <div className={styles.heading}>
+                            <img
+                              className={styles.profilePic}
+                              src={getUserImg(reply.user)}
+                              alt="Profile picture"
+                            />
+                            <div className={styles.userInfo}>
+                              <div className={styles.name}>
+                                {reply.user.name}
+                              </div>
+                              <div className={styles.username}>
+                                @{reply.user.username}
+                              </div>
+                            </div>
+                            <button className={styles.replyBtn}>Reply</button>
+                          </div>
+                          <p className={styles.content}>
+                            <span className={styles.replyingTo}>
+                              @{reply.replyingTo}{' '}
+                            </span>
+                            <span>{reply.content}</span>
+                          </p>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 )}
