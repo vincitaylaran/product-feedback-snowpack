@@ -18,13 +18,17 @@ $rainbox-height: 70px;
   background-position: center;
 
   color: colors.$white;
-  & h1 {
+  & h2 {
     font-size: 0.9375rem;
     font-weight: bold;
+    color: #fff;
+    margin-bottom: -8px;
   }
-  & h2 {
+  & h3 {
     font-size: 0.8125rem;
-    font-weight: medium;
+    font-weight: 500;
+    color: #fff;
+    opacity: 0.75;
   }
   border-radius: initial;
   width: 100%;
