@@ -18,6 +18,7 @@ function Comment() {
     setRequest(result);
   }, [data]);
 
+  // TODO: add feature to show an error message if attempting to submit an empty comment.
   return (
     <MainGrid>
       <RequestCard request={request} upvoteProductRequest={() => {}} />
