@@ -94,16 +94,22 @@ h4 {
   letter-spacing: -0.194444px;
 }
 
-input[type='text'] {
+input[type='text'],
+textarea {
   border-radius: 5px;
   border: none;
   background: colors.$blue-100;
-  min-height: 48px;
   padding: 13px 24px;
   font-size: 0.9375rem;
   position: relative;
+  font-family: Jost;
 
   &:focus {
     outline: 1px solid colors.$blue-500;
+  }
+
+  &::placeholder {
+    color: #8c92b3;
+    font-size: 0.8125rem;
   }
 }
