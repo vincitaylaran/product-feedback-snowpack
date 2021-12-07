@@ -44,8 +44,8 @@ function App() {
       <MobileNav>
         <Rainbox>
           <div>
-            <h1>Frontend Mentor</h1>
-            <h2>Feedback Board</h2>
+            <h2>Frontend Mentor</h2>
+            <h3>Feedback Board</h3>
           </div>
           <HamburgerIcon onClick={toggleWidgets} isOpen={isDrawerOpen} />
 
@@ -64,8 +64,8 @@ function App() {
       <WidgetsGrid>
         <Rainbox>
           <div>
-            <h1>Frontend Mentor</h1>
-            <h2>Feedback Board</h2>
+            <h2>Frontend Mentor</h2>
+            <h3>Feedback Board</h3>
           </div>
         </Rainbox>
         <FilterBox
