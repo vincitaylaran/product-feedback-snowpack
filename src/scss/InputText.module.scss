@@ -1,0 +1,15 @@
+@use './shared/colors.scss';
+@use './shared/breakpoints.scss';
+
+.inputTxt {
+  .text {
+    &.error {
+      outline: 1px solid colors.$red;
+    }
+  }
+
+  .errorMsg {
+    color: colors.$red;
+    padding-top: 4px;
+  }
+}
