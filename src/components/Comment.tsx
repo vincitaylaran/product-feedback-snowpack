@@ -6,6 +6,7 @@ import RequestCard from './RequestCard';
 import CommentsCard from './CommentsCard';
 import { useProductFeedback } from '../hooks/useProductFeedback';
 import type { ProductRequest } from 'src/interfaces/productRequest.interface';
+import AddComment from './AddComment';
 
 function Comment() {
   let params = useParams();
@@ -21,6 +22,7 @@ function Comment() {
     <MainGrid>
       <RequestCard request={request} upvoteProductRequest={() => {}} />
       <CommentsCard comments={request && request.comments} />
+      <AddComment />
     </MainGrid>
   );
 }
