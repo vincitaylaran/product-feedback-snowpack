@@ -39,7 +39,7 @@ function CommentsCard({ comments }: CommentsCardProps) {
             {getCommentCount()} Comments
           </h3>
           <div className={styles.commentsCard__comments}>
-            {comments.map((comment, index) => (
+            {comments.map((comment) => (
               <div className={styles.comment} key={uuidv4()}>
                 <div className={styles.main}>
                   <div className={styles.heading}>
@@ -81,6 +81,7 @@ function CommentsCard({ comments }: CommentsCardProps) {
                                 @{reply.user.username}
                               </div>
                             </div>
+                            {/* TODO: show textarea on toggling this button. */}
                             <button className={styles.replyBtn}>Reply</button>
                           </div>
                           <p className={styles.content}>
