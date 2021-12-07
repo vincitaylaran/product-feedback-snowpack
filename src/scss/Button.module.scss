@@ -17,6 +17,17 @@
 
   &:hover {
     cursor: pointer;
+    opacity: 0.9;
+  }
+
+  &.blue {
+    background-color: colors.$blue-900;
+  }
+  &.purple {
+    background-color: colors.$purple;
+  }
+  &.red {
+    background-color: colors.$red;
   }
 
   @media (max-width: breakpoints.$tablet) {
