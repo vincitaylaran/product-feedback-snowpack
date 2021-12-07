@@ -1,11 +1,17 @@
 .addComment {
   width: 100%;
 
-  .heading {
+  &__heading {
     margin-bottom: 24px;
   }
-  input[name='comment'] {
-  }
-  .footer {
+
+  &__footer {
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .charCount {
+    }
   }
 }
