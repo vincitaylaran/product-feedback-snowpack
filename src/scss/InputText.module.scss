@@ -3,6 +3,10 @@
 
 .inputTxt {
   .text {
+    width: 100%;
+    height: 80px;
+    resize: none;
+
     &.error {
       outline: 1px solid colors.$red;
     }
