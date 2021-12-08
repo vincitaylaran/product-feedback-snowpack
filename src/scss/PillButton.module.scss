@@ -7,17 +7,20 @@
   color: colors.$blue-500;
   font-weight: 800;
   border-radius: 10px;
-  padding: 0.7rem 0.8rem;
+  padding: 5px 16px;
   transition: all 300ms ease-in-out;
-  &:hover {
-    color: colors.$blue-100;
-    background-color: colors.$blue-500;
-  }
+  height: 30px;
 }
 .active {
   background-color: colors.$blue-500;
   color: colors.$blue-100;
 }
+
 .clickable {
   cursor: pointer;
+
+  &:hover {
+    color: colors.$blue-100;
+    background-color: colors.$blue-500;
+  }
 }
