@@ -45,8 +45,12 @@ p {
   line-height: 18.79px;
   font-style: normal;
   font-weight: normal;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: colors.$blue-700;
+
+  @media (min-width: breakpoints.$tablet) {
+    font-size: 0.9375rem;
+  }
 }
 
 h1,
@@ -100,7 +104,7 @@ textarea {
   border: none;
   background: colors.$blue-100;
   padding: 13px 24px;
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
   position: relative;
   font-family: Jost;
 
@@ -111,5 +115,12 @@ textarea {
   &::placeholder {
     color: #8c92b3;
     font-size: 0.8125rem;
+  }
+
+  @media (min-width: breakpoints.$tablet) {
+    &,
+    &::placeholder {
+      font-size: 0.9375rem;
+    }
   }
 }
