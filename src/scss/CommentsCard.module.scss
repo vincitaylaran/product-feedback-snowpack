@@ -2,9 +2,15 @@
 @use './shared/breakpoints.scss';
 
 $spacing: 24px;
+$profilePicWidth: 40px;
+$userInfoMarginLeft: 16px;
 
 .commentsCard {
   width: 100%;
+
+  @media (min-width: breakpoints.$tablet) {
+    padding: 24px 34px;
+  }
 
   &__count {
     color: colors.$blue-900;
@@ -35,12 +41,12 @@ $spacing: 24px;
 
           .profilePic {
             border-radius: 50%;
-            width: 40px;
+            width: $profilePicWidth;
           }
 
           .userInfo {
             font-size: 13px;
-            margin-left: 16px;
+            margin-left: $userInfoMarginLeft;
 
             .name {
               font-weight: bold;
@@ -57,31 +63,28 @@ $spacing: 24px;
             font-weight: bold;
             color: colors.$blue-500;
           }
+
+          // @media (min-width: breakpoints.$tablet) {
+          //   & {
+          //     display: block;
+          //   }
+
+          //   .userInfo {
+          //     margin: 0;
+          //   }
+          // }
         }
 
         .content {
-          // background: blue;
-          margin-bottom: $spacing;
+          padding-bottom: $spacing;
+
+          @media (min-width: breakpoints.$tablet) {
+            padding-left: $profilePicWidth + $userInfoMarginLeft;
+          }
         }
       }
 
       .replies {
-        // position: relative;
-        // border-left: 1px solid colors.$blue-700;
-
-        @media (max-width: breakpoints.$tablet) {
-          // &::after {
-          //   content: '';
-          //   position: absolute;
-          //   top: 0px;
-          //   left: 0px;
-          //   height: 80%;
-          //   // height: 62.5%;
-          //   border-left: 1px solid colors.$blue-700;
-          //   opacity: 0.25;
-          // }
-        }
-
         // Overrides styles if used together with styles for '.comment'.
         .reply {
           padding-left: $spacing;
