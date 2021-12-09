@@ -115,12 +115,7 @@ function RequestDetails({ title, description, category }: RequestDetailsProps) {
       >
         {description}
       </p>
-      <PillButton
-        onClick={() => null}
-        text={formatCategory(category)}
-        active={false}
-        clickable={false}
-      />
+      <PillButton text={formatCategory(category)} active={false} />
     </div>
   );
 }
