@@ -92,20 +92,22 @@ $userInfoMarginLeft: 16px;
           border-bottom: none;
           position: relative;
 
-          // Give each reply a border to its left.
-          &::after {
-            content: '';
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            height: 100%;
-            border-left: 1px solid colors.$blue-700;
-            opacity: 0.25;
-          }
+          @media (max-width: breakpoints.$tablet) {
+            // Give each reply a border to its left.
+            &::after {
+              content: '';
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              height: 100%;
+              border-left: 1px solid colors.$blue-700;
+              opacity: 0.25;
+            }
 
-          // Overrides border styles declared above for the last reply.
-          &:last-child::after {
-            height: 22px;
+            // Overrides border styles declared above for the last reply.
+            &:last-child::after {
+              height: 22px;
+            }
           }
 
           .content {
