@@ -31,6 +31,7 @@ function CommentsCard({ comments }: CommentsCardProps) {
     }
   };
 
+  // TODO: create reply thread line for tablet
   return (
     <>
       {comments ? (
