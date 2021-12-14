@@ -63,16 +63,6 @@ $userInfoMarginLeft: 16px;
             font-weight: bold;
             color: colors.$blue-500;
           }
-
-          // @media (min-width: breakpoints.$tablet) {
-          //   & {
-          //     display: block;
-          //   }
-
-          //   .userInfo {
-          //     margin: 0;
-          //   }
-          // }
         }
 
         .content {
@@ -81,6 +71,12 @@ $userInfoMarginLeft: 16px;
           @media (min-width: breakpoints.$tablet) {
             padding-left: $profilePicWidth + $userInfoMarginLeft;
           }
+        }
+
+        .replyTxtArea {
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: $spacing;
         }
       }
 
@@ -123,4 +119,8 @@ $userInfoMarginLeft: 16px;
       }
     }
   }
+}
+
+.hidden {
+  display: none;
 }
