@@ -34,7 +34,8 @@ function CommentsCard({ comments }: CommentsCardProps) {
     }
   };
 
-  const toggleReplyTxtArea = (commentId: number | string): void => {
+  // FIXME: should be able to toggle multiple text areas.
+  const toggleReplyTxtArea = (commentId: number | string | undefined): void => {
     if (!toggledReplyId) {
       setToggledReplyId(commentId);
     } else {
@@ -73,13 +74,16 @@ function CommentsCard({ comments }: CommentsCardProps) {
                       Reply
                     </button>
                   </div>
-                  <p className={styles.content}>{comment.content}</p>
-                  <ReplyArea isVisible={toggledReplyId === comment.id} />
+                  <p className={styles.content}>
+                    <span>{comment.content}</span>
+                    <ReplyArea isVisible={toggledReplyId === comment.id} />
+                  </p>
                 </div>
 
                 {comment.replies && (
                   <div className={styles.replies}>
                     {comment.replies.map((reply) => {
+                      // Give reply an ID. Helps with toggling the reply text area.
                       if (!reply.id) reply.id = uuidv4();
 
                       return (
@@ -102,7 +106,6 @@ function CommentsCard({ comments }: CommentsCardProps) {
                                   @{reply.user.username}
                                 </div>
                               </div>
-                              {/* TODO: show textarea on toggling this button. */}
                               <button
                                 className={styles.replyBtn}
                                 onClick={() => toggleReplyTxtArea(reply.id)}
@@ -115,11 +118,10 @@ function CommentsCard({ comments }: CommentsCardProps) {
                                 @{reply.replyingTo}{' '}
                               </span>
                               <span>{reply.content}</span>
+                              <ReplyArea
+                                isVisible={toggledReplyId === reply.id}
+                              />
                             </p>
-
-                            <ReplyArea
-                              isVisible={toggledReplyId === reply.id}
-                            />
                           </div>
                         </div>
                       );
