@@ -26,11 +26,16 @@ export enum ProductRequestStatus {
 }
 
 export interface Comment {
+  id: number;
   content: string;
   user: User;
   replies?: Reply[];
 }
 
-export interface Reply extends Comment {
+export interface Reply {
+  id: string;
   replyingTo: string;
+  content: string;
+  user: User;
+  replies?: Reply[];
 }
