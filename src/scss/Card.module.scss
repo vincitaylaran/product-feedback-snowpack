@@ -5,4 +5,10 @@
   padding: 1rem;
   background-color: colors.$white;
   box-shadow: rgba(0, 0, 0, 0.05) 3px 3px 10px;
+  position: relative;
+  .icon {
+    width: 40px;
+    position: absolute;
+    top: -20px;
+  }
 }
