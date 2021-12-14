@@ -77,6 +77,24 @@ $userInfoMarginLeft: 16px;
           display: flex;
           justify-content: space-between;
           padding-bottom: $spacing;
+          padding-top: $spacing;
+
+          @media (max-width: breakpoints.$tablet) {
+            flex-direction: column;
+          }
+
+          & > button {
+            height: 100%;
+            @media (max-width: breakpoints.$tablet) {
+              width: 117px;
+              margin-top: 16px;
+            }
+          }
+
+          textarea[title='reply'] {
+            width: 100%;
+            margin-right: 16px;
+          }
         }
       }
 
