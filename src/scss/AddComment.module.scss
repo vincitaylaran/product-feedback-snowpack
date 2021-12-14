@@ -1,5 +1,11 @@
+@use './shared/breakpoints.scss';
+
 .addComment {
   width: 100%;
+
+  @media (min-width: breakpoints.$tablet) {
+    padding: 24px 34px;
+  }
 
   &__heading {
     margin-bottom: 24px;
