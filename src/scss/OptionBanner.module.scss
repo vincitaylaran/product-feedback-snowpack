@@ -42,41 +42,46 @@
   font-weight: 800;
 }
 
-.addFeedbackButton {
-  background-color: colors.$purple;
-  padding: 1rem;
-  border-radius: 0.625rem;
-  color: colors.$white;
-  font-weight: 600;
-  white-space: nowrap; // Prevents text from starting on new line.
+// .addFeedbackButton {
+//   background-color: colors.$purple;
+//   padding: 1rem;
+//   border-radius: 0.625rem;
+//   color: colors.$white;
+//   font-weight: 600;
+//   white-space: nowrap; // Prevents text from starting on new line.
 
-  & > *:first-child {
-    margin-right: 3px;
-    transform: scale(1.4);
-  }
+//   & > *:first-child {
+//     margin-right: 3px;
+//     transform: scale(1.4);
+//   }
 
-  &:hover {
-    cursor: pointer;
-  }
+//   &:hover {
+//     cursor: pointer;
+//   }
 
-  @media (max-width: breakpoints.$tablet) {
-    font-size: 0.8125rem;
-    padding: 0.65625rem 1rem;
-    height: 40px;
-  }
+//   @media (max-width: breakpoints.$tablet) {
+//     font-size: 0.8125rem;
+//     padding: 0.65625rem 1rem;
+//     height: 40px;
+//   }
 
-  @media (max-width: breakpoints.$mobile-sm) {
-    &__feedback {
-      display: none;
-    }
-  }
-}
+//   @media (max-width: breakpoints.$mobile-sm) {
+//     &__feedback {
+//       display: none;
+//     }
+//   }
+// }
 
 .dropdownContainer {
   display: flex;
   color: black;
   position: relative;
   font-size: 0.8125rem;
+  border-radius: 5px;
+
+  &.open {
+    border: 1px solid colors.$purple;
+  }
 
   &:hover {
     label {
@@ -87,6 +92,26 @@
   &,
   & > * {
     cursor: pointer;
+  }
+
+  &.light {
+    background: colors.$blue-100;
+    .selectedOption {
+      font-weight: 400;
+      color: colors.$blue-900;
+    }
+    .options {
+    }
+  }
+
+  .labels {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 24px;
+    font-size: 0.9375rem;
+    color: colors.$blue-900;
   }
 
   .options {
