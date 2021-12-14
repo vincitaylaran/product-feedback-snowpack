@@ -33,9 +33,8 @@ export interface Comment {
 }
 
 export interface Reply {
-  id: string;
+  id?: string;
   replyingTo: string;
   content: string;
   user: User;
-  replies?: Reply[];
 }
