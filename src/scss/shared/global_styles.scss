@@ -107,6 +107,7 @@ textarea {
   font-size: 0.8125rem;
   position: relative;
   font-family: Jost;
+  resize: none;
 
   &:focus {
     outline: 1px solid colors.$blue-500;
@@ -122,5 +123,11 @@ textarea {
     &::placeholder {
       font-size: 0.9375rem;
     }
+  }
+}
+
+button {
+  &:hover {
+    cursor: pointer;
   }
 }
