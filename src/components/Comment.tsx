@@ -19,6 +19,8 @@ function Comment() {
   }, [data]);
 
   // TODO: add feature to show an error message if attempting to submit an empty comment.
+  // TODO: add feature to reply to a comment.
+  // TODO: add feature to add a comment.
   return (
     <MainGrid>
       <RequestCard request={request} upvoteProductRequest={() => {}} />
