@@ -5,6 +5,8 @@ import ArrowIcon from './ArrowIcon';
 import SuggestionIcon from '../../public/assets/suggestions/icon-suggestions.svg';
 import styles from '../scss/OptionBanner.module.scss';
 import _ from 'lodash';
+import Button from './Button';
+import { Link } from 'react-router-dom';
 
 interface OptionBannerProps {
   suggestionLength: number;
@@ -23,38 +25,59 @@ function OptionBanner({ suggestionLength }: OptionBannerProps) {
         {suggestionLength == 1 ? '' : 's'}
       </h3>
       <OptionsDropdown
-        label="Sort by"
+        subtitle="Sort by"
         options={[
           'Most Upvotes',
           'Least Upvotes',
           'Most Comments',
           'Least Comments',
         ]}
+        theme="dark"
       />
-      <AddFeedbackButton />
+      <Link to="/new-feedback" className={styles.addFeedbackButton}>
+        <Button>+ Add Feedback</Button>
+      </Link>
     </Card>
   );
 }
 
 interface OptionsDropdownProps {
-  label: string;
+  subtitle?: string;
   options: string[];
+  theme: 'light' | 'dark';
+  className?: string;
 }
 
-function OptionsDropdown({ label, options }: OptionsDropdownProps) {
+// TODO: make this reusable.
+export function OptionsDropdown({
+  subtitle,
+  options,
+  theme,
+  className,
+}: OptionsDropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>(options[0]);
 
   return (
     <div
-      className={styles.dropdownContainer}
+      className={`${styles.dropdownContainer} ${
+        theme === 'light' ? styles.light : styles.dark
+      } ${isOpen && styles.open}  ${className}`}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <label>
-        <span className={styles.label}>{label}</span>
-        <span className={styles.colon}>:</span>
+      <label className={`${styles.labels}`}>
+        {subtitle && (
+          <>
+            <span className={styles.label}>{subtitle}</span>
+            <span className={styles.colon}>:</span>
+          </>
+        )}
+
         <span className={styles.selectedOption}>{selectedOption}</span>
-        <ArrowIcon color="#fff" direction={isOpen ? 'up' : 'down'} />
+        <ArrowIcon
+          color={theme === 'light' ? '#4661E6' : '#fff'}
+          direction={isOpen ? 'up' : 'down'}
+        />
       </label>
 
       <div
