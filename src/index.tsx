@@ -5,7 +5,10 @@ import './scss/shared/global_styles.scss';
 import './index.scss';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Comments from './routes/comments';
+import NewFeedback from './routes/new-feedback';
+
 import Comment from './components/Comment';
 
 export const client = new ApolloClient({
@@ -22,6 +25,7 @@ ReactDOM.render(
           <Route path="/comments" element={<Comments />}>
             <Route path=":requestId" element={<Comment />} />
           </Route>
+          <Route path="/new-feedback" element={<NewFeedback />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

@@ -1,0 +1,36 @@
+@use './shared/colors.scss';
+@use './shared/breakpoints.scss';
+
+$spacing: 24px;
+
+.newFeedbackCard {
+  margin-top: 55px;
+  padding: 24px 16px;
+
+  &__title {
+    padding-top: $spacing;
+  }
+
+  &__inputField {
+    padding: 24px 0;
+
+    .inputTitle {
+      font-size: 0.8125rem;
+    }
+    .inputSubtitle {
+      margin-bottom: 16px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    .inputDropdown {
+      label {
+        padding: 14px 16px;
+        margin-right: 0;
+      }
+    }
+  }
+}
